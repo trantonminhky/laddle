@@ -11,7 +11,7 @@ SRC_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
 # Map src/.../*.cpp → build/.../*.o
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC_FILES))
 
-TARGET := app
+TARGET := laddle
 
 all: $(TARGET)
 
