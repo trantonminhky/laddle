@@ -1,12 +1,11 @@
 #pragma once
 #include <string>
+#include "managers/BaseManager.hpp"
 #include <SFML/Graphics.hpp>
 
-class FontManager
+class FontManager : public BaseManager<FontManager>
 {
 public:
-	static FontManager& getInstance();
-
 	void load(const std::string& key, const std::string& path);
 	const sf::Font& get(const std::string& name) const;
 

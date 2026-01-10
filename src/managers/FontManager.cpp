@@ -1,11 +1,5 @@
 #include <managers/FontManager.hpp>
 
-FontManager& FontManager::getInstance()
-{
-	static FontManager instance;
-	return instance;
-}
-
 void FontManager::load(const std::string& key, const std::string& path)
 {
 	sf::Font font(path);
