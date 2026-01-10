@@ -4,7 +4,7 @@
 # ###################################################
 
 CXX := g++
-CXXFLAGS := -std=c++20 -Wall -Wextra -MMD -MP
+CXXFLAGS := -std=c++20 -Wall -Wextra -g -MMD -MP
 INCLUDES := -Iinclude
 
 SRC_DIR := src

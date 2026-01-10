@@ -1,5 +1,7 @@
 #include "app/Program.hpp"
 #include "app/solve.hpp"
+#include "app/GameContext.hpp"
+#include "app/globals.hpp"
 #include <iostream>
 #include <optional>
 #include <SFML/Graphics.hpp>
@@ -59,6 +61,10 @@ void Program::run()
 		{
 			sf::RenderWindow window(sf::VideoMode({1200, 800}), "poop");
 			screenPtr = std::make_unique<TestScreen>(window);
+
+			Managers::fontManagerPtr = std::make_unique<FontManager>();
+			Managers::fontManagerPtr->init();
+			Contexts::gameContextPtr = std::make_unique<GameContext>(*Managers::fontManagerPtr);
 
 			while (window.isOpen())
 			{
