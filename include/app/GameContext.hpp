@@ -17,7 +17,7 @@ public:
 	template <typename ...Ts>
 	void loadFont(Ts&&... yuke)
 	{
-		p_fontManager.load(std::forward<Ts>(yuke)...);
+		p_fontManager.l	oad(std::forward<Ts>(yuke)...);
 	}
 
 	template <typename ...Ts>

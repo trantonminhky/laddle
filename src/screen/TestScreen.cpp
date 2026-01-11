@@ -9,7 +9,7 @@ void TestScreen::update()
 
 void TestScreen::draw()
 {
-	const sf::Font& font = Managers::fontManagerPtr->get("VCR_OSD_MONO");
+	const sf::Font& font = Contexts::gameContextPtr->getFont("VCR_OSD_MONO");
 	sf::Text allOKText(font, "SFML all OK!", 50);
 
 	p_window->clear();
