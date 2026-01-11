@@ -14,11 +14,11 @@ class Tile
 public:
 	Tile() = default;
 
-	TileState getState();
-	void setState(TileState newState);
-	char getLetter();
+	TileState getState() const;
+	void setState(const TileState& newState);
+	char getLetter() const;
 	void clearLetter();
-	void setLetter(char newLetter);
+	void setLetter(const char& newLetter);
 
 private:
 	TileState state = TileState::NONE;
