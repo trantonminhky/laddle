@@ -17,6 +17,12 @@ void Row::setPosition(const float& x, const float& y)
 	p_position.y = y;
 }
 
+Tile Row::getTileAtIndex(const int& i)
+{
+	swag_assert(i >= 0 && i < WORD_LENGTH);
+	return p_tiles[i];
+}
+
 std::array<TileState, WORD_LENGTH> Row::getState() const
 {
 	std::array<TileState, WORD_LENGTH> states;

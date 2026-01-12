@@ -14,6 +14,8 @@ public:
 	sf::Vector2f getPosition() const;
 	void setPosition(const float& x, const float& y);
 
+	Tile getTileAtIndex(const int& i);
+
 	std::array<TileState, WORD_LENGTH> getState() const;
 	void check(const std::string& target);
 	std::string getWord() const;

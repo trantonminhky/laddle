@@ -22,7 +22,7 @@ void TestScreen::handleInput(const sf::Event& event)
 
 void TestScreen::update()
 {
-	
+
 }
 
 void TestScreen::draw()
@@ -32,5 +32,22 @@ void TestScreen::draw()
 
 	p_window->clear();
 	p_window->draw(allOKText);
+	
+	sf::Vector2f currentTilePosition = p_row.getPosition();
+	for (int i = 0; i < WORD_LENGTH; i++)
+	{
+		sf::RectangleShape tileRect({80.0f, 80.f});
+		tileRect.setPosition(currentTilePosition);
+		char tileLetter = p_row.getTileAtIndex(i).getLetter();
+		sf::Text tileLetterText(font, tileLetter, 50);
+		tileLetterText.setFillColor(sf::Color::Black);
+		tileLetterText.setPosition(currentTilePosition);
+
+		p_window->draw(tileRect);
+		p_window->draw(tileLetterText);
+
+		currentTilePosition.x += 90;
+	}
+
 	p_window->display();
 }
