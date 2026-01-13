@@ -1,6 +1,7 @@
 #include <iostream>
 #include "screens/TestScreen.hpp"
 #include "contexts/GameContext.hpp"
+#include "helper/centerTextInRect.hpp"
 #include <SFML/Graphics.hpp>
 
 void TestScreen::handleInput(const sf::Event& event)
@@ -38,16 +39,18 @@ void TestScreen::draw()
 	{
 		sf::RectangleShape tileRect({80.0f, 80.f});
 		tileRect.setPosition(currentTilePosition);
+
 		char tileLetter = p_row.getTileAtIndex(i).getLetter();
-		sf::Text tileLetterText(font, tileLetter, 50);
+		sf::Text tileLetterText(font, tileLetter, 80);
 		tileLetterText.setFillColor(sf::Color::Black);
-		tileLetterText.setPosition(currentTilePosition);
+		centerTextInRect(tileLetterText, tileRect);
 
 		p_window->draw(tileRect);
 		p_window->draw(tileLetterText);
 
 		currentTilePosition.x += 90;
 	}
+	std::cout << '\n';
 
 	p_window->display();
 }
