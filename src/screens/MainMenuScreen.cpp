@@ -12,7 +12,18 @@ constexpr auto CREDITS_TEXT_Y_POSITION = 540.0f;
 
 void MainMenuScreen::handleInput(const sf::Event& event)
 {
-
+	if (event.is<sf::Event::KeyPressed>())
+	{
+		auto scancode = event.getIf<sf::Event::KeyPressed>()->scancode;
+		if (scancode == sf::Keyboard::Scan::Up)
+		{
+			p_selector = (p_selector + MAIN_MENU_MAX_OPTIONS - 1) % MAIN_MENU_MAX_OPTIONS;
+		}
+		else if (scancode == sf::Keyboard::Scan::Down)
+		{
+			p_selector = (p_selector + 1) % MAIN_MENU_MAX_OPTIONS;
+		}
+	}
 }
 
 void MainMenuScreen::update()
