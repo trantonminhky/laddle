@@ -12,5 +12,5 @@ public:
 
 private:
 	int p_selector = 0;
-	static constexpr auto MAIN_MENU_MAX_OPTIONS = 4;
+	static constexpr auto MAIN_MENU_MAX_OPTIONS = 5;
 };

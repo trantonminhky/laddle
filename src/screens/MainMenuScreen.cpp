@@ -9,6 +9,7 @@ constexpr auto PLAY_TEXT_Y_POSITION = 300.0f;
 constexpr auto ABOUT_TEXT_Y_POSITION = 380.0f;
 constexpr auto SETTINGS_TEXT_Y_POSITION = 460.0f;
 constexpr auto EXIT_TEXT_Y_POSITION = 540.0f;
+constexpr auto TEST_TEXT_Y_POSITION = 620.0f;
 
 void MainMenuScreen::handleInput(const sf::Event& event)
 {
@@ -47,11 +48,13 @@ void MainMenuScreen::draw()
 	sf::Text aboutText(font, "ABOUT", 60);
 	sf::Text settingsText(font, "SETTINGS", 60);
 	sf::Text exitText(font, "EXIT", 60);
+	sf::Text testText(font, "TEST", 60);
 	{
 		playText.setPosition({p_window->getSize().x / 4.0f, PLAY_TEXT_Y_POSITION});
 		aboutText.setPosition({p_window->getSize().x / 4.0f, ABOUT_TEXT_Y_POSITION});
 		settingsText.setPosition({p_window->getSize().x / 4.0f, SETTINGS_TEXT_Y_POSITION});
 		exitText.setPosition({p_window->getSize().x / 4.0f, EXIT_TEXT_Y_POSITION});
+		testText.setPosition({p_window->getSize().x / 4.0f, TEST_TEXT_Y_POSITION});
 	}
 
 	sf::Text selectorText(font, ">", 60);
@@ -67,8 +70,9 @@ void MainMenuScreen::draw()
 	p_window->draw(playText);
 	p_window->draw(aboutText);
 	p_window->draw(settingsText);
-	p_window->draw(selectorText);
 	p_window->draw(exitText);
-
+	p_window->draw(testText);
+	p_window->draw(selectorText);
+	
 	p_window->display();
 }
