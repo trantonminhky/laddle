@@ -1,6 +1,5 @@
 #include "app/Program.hpp"
 #include "app/solve.hpp"
-#include "app/globals.hpp"
 
 #include "contexts/GameContext.hpp"
 
