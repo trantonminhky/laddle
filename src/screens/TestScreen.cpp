@@ -11,18 +11,20 @@ void TestScreen::handleInput(const sf::Event& event)
 		auto scancode = event.getIf<sf::Event::KeyPressed>()->scancode;
 		if (scancode == sf::Keyboard::Scan::Backspace)
 		{
-			std::cout << "backspace\n";
 			p_row.popLetter();
 		}
 		else if (scancode == sf::Keyboard::Scan::Enter)
 		{
-			std::cout << "enter\n";
 			if (p_row.isFull()) 
 			{
 				std::cout << p_row.getWord() << '\n';
 				p_row.reset();
 			}
-			else;
+			else
+			{
+				std::cout << "shake" << '\n';
+				p_row.shake();
+			}
 		}
 	}
 	else if (event.is<sf::Event::TextEntered>())
@@ -40,7 +42,7 @@ void TestScreen::handleInput(const sf::Event& event)
 
 void TestScreen::update()
 {
-
+	p_row.update();
 }
 
 void TestScreen::draw()

@@ -1,7 +1,13 @@
+#include <cmath>
 #include "ui/Row.hpp"
 #include "contexts/GameContext.hpp"
 #include "helper/swag_assert.hpp"
 #include "helper/centerTextInRect.hpp"
+
+Row::Row()
+{
+	shakeClock.clock.reset();
+}
 
 bool Row::isFull() const
 {
@@ -10,7 +16,19 @@ bool Row::isFull() const
 
 sf::Vector2f Row::getPosition() const
 {
+	if (shakeClock.toggle) return getAnimatedPosition();
+	else return getBasePosition();
+}
+
+sf::Vector2f Row::getBasePosition() const
+{
 	return p_position;
+}
+
+sf::Vector2f Row::getAnimatedPosition() const
+{
+	auto x = shakeClock.SHAKE_AMPLITUDE.asSeconds() * std::sin(p_position.x * shakeClock.SHAKE_STRENGTH.asSeconds() * shakeClock.clock.getElapsedTime().asSeconds());
+	return {p_position.x + x, p_position.y};
 }
 
 void Row::setPosition(const float& x, const float& y)
@@ -67,7 +85,7 @@ std::string Row::getWord() const
 	for (int i = 0; i < WORD_LENGTH; i++)
 	{
 		char letter = p_tiles[i].getLetter();
-		swag_assert(letter == '\x00');
+		swag_assert(letter != '\x00');
 		result[i] = letter;
 	}
 	return result;
@@ -97,6 +115,22 @@ void Row::reset()
 		tile.reset();
 	}
 	p_iterator = 0;
+}
+
+void Row::shake()
+{
+	shakeClock.toggle = true;
+	shakeClock.clock.start();
+}
+
+void Row::update()
+{
+	if (!shakeClock.toggle) return;
+	if (shakeClock.clock.getElapsedTime() >= shakeClock.SHAKE_DURATION)
+	{
+		shakeClock.toggle = false;
+		shakeClock.clock.reset();
+	}
 }
 
 void Row::draw(sf::RenderTarget& target, sf::RenderStates states) const
