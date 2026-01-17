@@ -8,18 +8,18 @@ constexpr auto LADDLE_TEXT_Y_POSITION = 100.0f;
 constexpr auto PLAY_TEXT_Y_POSITION = 300.0f;
 constexpr auto ABOUT_TEXT_Y_POSITION = 380.0f;
 constexpr auto SETTINGS_TEXT_Y_POSITION = 460.0f;
-constexpr auto CREDITS_TEXT_Y_POSITION = 540.0f;
+constexpr auto EXIT_TEXT_Y_POSITION = 540.0f;
 
 void MainMenuScreen::handleInput(const sf::Event& event)
 {
 	if (event.is<sf::Event::KeyPressed>())
 	{
 		auto scancode = event.getIf<sf::Event::KeyPressed>()->scancode;
-		if (scancode == sf::Keyboard::Scan::Up)
+		if (scancode == sf::Keyboard::Scan::Up || scancode == sf::Keyboard::Scan::W)
 		{
 			p_selector = (p_selector + MAIN_MENU_MAX_OPTIONS - 1) % MAIN_MENU_MAX_OPTIONS;
 		}
-		else if (scancode == sf::Keyboard::Scan::Down)
+		else if (scancode == sf::Keyboard::Scan::Down || scancode == sf::Keyboard::Scan::S)
 		{
 			p_selector = (p_selector + 1) % MAIN_MENU_MAX_OPTIONS;
 		}
@@ -46,12 +46,12 @@ void MainMenuScreen::draw()
 	sf::Text playText(font, "PLAY", 60);
 	sf::Text aboutText(font, "ABOUT", 60);
 	sf::Text settingsText(font, "SETTINGS", 60);
-	sf::Text creditsText(font, "CREDITS", 60);
+	sf::Text exitText(font, "EXIT", 60);
 	{
 		playText.setPosition({p_window->getSize().x / 4.0f, PLAY_TEXT_Y_POSITION});
 		aboutText.setPosition({p_window->getSize().x / 4.0f, ABOUT_TEXT_Y_POSITION});
 		settingsText.setPosition({p_window->getSize().x / 4.0f, SETTINGS_TEXT_Y_POSITION});
-		creditsText.setPosition({p_window->getSize().x / 4.0f, CREDITS_TEXT_Y_POSITION});
+		exitText.setPosition({p_window->getSize().x / 4.0f, EXIT_TEXT_Y_POSITION});
 	}
 
 	sf::Text selectorText(font, ">", 60);
@@ -68,7 +68,7 @@ void MainMenuScreen::draw()
 	p_window->draw(aboutText);
 	p_window->draw(settingsText);
 	p_window->draw(selectorText);
-	p_window->draw(creditsText);
+	p_window->draw(exitText);
 
 	p_window->display();
 }
