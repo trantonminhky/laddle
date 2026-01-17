@@ -9,7 +9,8 @@ enum class GameState
 	MAIN_MENU,
 	ABOUT,
 	OPTIONS,
-	TEST
+	TEST,
+	NOT_IMPLEMENTED
 };
 
 namespace GameContext
