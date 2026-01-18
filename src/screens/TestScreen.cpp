@@ -1,8 +1,10 @@
 #include <iostream>
+
 #include "screens/TestScreen.hpp"
+
 #include "contexts/GameContext.hpp"
+
 #include "helper/centerTextInRect.hpp"
-#include <SFML/Graphics.hpp>
 
 void TestScreen::handleInput(const sf::Event& event)
 {
