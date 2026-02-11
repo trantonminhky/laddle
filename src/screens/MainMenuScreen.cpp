@@ -15,25 +15,28 @@ constexpr auto TEST_TEXT_Y_POSITION = 620.0f;
 
 bool MainMenuScreen::handleInput(const sf::Event& event)
 {
-	if (event.is<sf::Event::KeyPressed>())
+	bool captured = false;
+	ResourceManager::checkActions(event);
+
+	if (ResourceManager::hasAction(GameAction::MAIN_MENU_MOVE_UP))
 	{
-		auto scancode = event.getIf<sf::Event::KeyPressed>()->scancode;
-		if (scancode == sf::Keyboard::Scan::Up || scancode == sf::Keyboard::Scan::W)
-		{
-			p_selector = (p_selector + P_MAIN_MENU_MAX_OPTIONS - 1) % P_MAIN_MENU_MAX_OPTIONS;
-		}
-		else if (scancode == sf::Keyboard::Scan::Down || scancode == sf::Keyboard::Scan::S)
-		{
-			p_selector = (p_selector + 1) % P_MAIN_MENU_MAX_OPTIONS;
-		}
-		else if (scancode == sf::Keyboard::Scan::Enter)
-		{
-			ScreenManager::advance(p_nextState[p_selector]);
-		}
-		return true;
+		p_selector = (p_selector + P_MAIN_MENU_MAX_OPTIONS - 1) % P_MAIN_MENU_MAX_OPTIONS;
+		captured = true;
+	}
+	else if (ResourceManager::hasAction(GameAction::MAIN_MENU_MOVE_DOWN))
+	{
+		p_selector = (p_selector + 1) % P_MAIN_MENU_MAX_OPTIONS;
+		captured = true;
+	}
+	else if (ResourceManager::hasAction(GameAction::MAIN_MENU_SELECT))
+	{
+		ScreenManager::advance(p_nextState[p_selector]);
+		captured = true;
 	}
 
-	return false;
+	ResourceManager::clearActions();
+
+	return captured;
 }
 
 void MainMenuScreen::update()

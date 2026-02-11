@@ -44,8 +44,9 @@ namespace ResourceManager
 		return actionManagerPtr->hasAction(std::forward<Ts>(yuke)...);
 	}
 
-	void clearActions()
+	template <typename ...Ts>
+	void clearActions(Ts&&... yuke)
 	{
-		actionManagerPtr->clearActions();
+		actionManagerPtr->clearActions(std::forward<Ts>(yuke)...);
 	}
 }

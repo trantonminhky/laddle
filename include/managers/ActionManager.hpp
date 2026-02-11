@@ -15,6 +15,9 @@ enum GameAction
 class ActionManager
 {
 public:
+	explicit ActionManager() = default;
+	~ActionManager() = default;
+
 	void checkActions(const sf::Event& event);
 	bool hasAction(const GameAction& action) const;
 	void clearActions();
