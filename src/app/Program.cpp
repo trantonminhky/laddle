@@ -1,7 +1,7 @@
 #include "app/Program.hpp"
 #include "app/solve.hpp"
 
-#include "contexts/GameContext.hpp"
+#include "managers/ResourceManager.hpp"
 
 #include "screens/MainMenuScreen.hpp"
 
@@ -64,7 +64,7 @@ void Program::run()
 		{
 			sf::RenderWindow window(sf::VideoMode({1200, 800}), "poop");
 
-			GameContext::init();
+			ResourceManager::init();
 
 			p_screenManager = std::make_unique<ScreenManager>();
 			p_screenManager->init();

@@ -2,7 +2,7 @@
 
 #include "screens/TestScreen.hpp"
 
-#include "contexts/GameContext.hpp"
+#include "managers/ResourceManager.hpp"
 
 #include "helper/centerTextInRect.hpp"
 
@@ -55,7 +55,7 @@ void TestScreen::update()
 
 void TestScreen::draw(sf::RenderTarget& window)
 {
-	const sf::Font& font = GameContext::getFont("VCR_OSD_MONO");
+	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	sf::Text allOKText(font, "SFML all OK!", 50);
 
 	window.draw(allOKText);

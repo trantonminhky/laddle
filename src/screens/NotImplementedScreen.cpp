@@ -1,6 +1,6 @@
 #include "screens/NotImplementedScreen.hpp"
 
-#include "contexts/GameContext.hpp"
+#include "managers/ResourceManager.hpp"
 
 bool NotImplementedScreen::handleInput(const sf::Event& event)
 {
@@ -14,7 +14,7 @@ void NotImplementedScreen::update()
 
 void NotImplementedScreen::draw(sf::RenderTarget& window)
 {
-	const sf::Font& font = GameContext::getFont("VCR_OSD_MONO");
+	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	sf::Text notImplementedText(font, "not implemented :(", 50);
 
 	window.draw(notImplementedText);

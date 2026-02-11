@@ -20,11 +20,11 @@ bool MainMenuScreen::handleInput(const sf::Event& event)
 		auto scancode = event.getIf<sf::Event::KeyPressed>()->scancode;
 		if (scancode == sf::Keyboard::Scan::Up || scancode == sf::Keyboard::Scan::W)
 		{
-			p_selector = (p_selector + MAIN_MENU_MAX_OPTIONS - 1) % MAIN_MENU_MAX_OPTIONS;
+			p_selector = (p_selector + P_MAIN_MENU_MAX_OPTIONS - 1) % P_MAIN_MENU_MAX_OPTIONS;
 		}
 		else if (scancode == sf::Keyboard::Scan::Down || scancode == sf::Keyboard::Scan::S)
 		{
-			p_selector = (p_selector + 1) % MAIN_MENU_MAX_OPTIONS;
+			p_selector = (p_selector + 1) % P_MAIN_MENU_MAX_OPTIONS;
 		}
 		else if (scancode == sf::Keyboard::Scan::Enter)
 		{
@@ -43,7 +43,7 @@ void MainMenuScreen::update()
 
 void MainMenuScreen::draw(sf::RenderTarget& window)
 {
-	const sf::Font& font = GameContext::getFont("VCR_OSD_MONO");
+	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 
 	sf::Text laddleText(font, "LADDLE", 120);
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include "screens/BaseScreen.hpp"
 
-#include "contexts/GameContext.hpp"
+#include "managers/ResourceManager.hpp"
 
 class MainMenuScreen : public BaseScreen
 {
@@ -14,8 +14,8 @@ public:
 
 private:
 	int p_selector = 0;
-	static constexpr auto MAIN_MENU_MAX_OPTIONS = 5;
-	static constexpr GameState p_nextState[MAIN_MENU_MAX_OPTIONS] = {
+	static constexpr auto P_MAIN_MENU_MAX_OPTIONS = 5;
+	static constexpr GameState p_nextState[P_MAIN_MENU_MAX_OPTIONS] = {
 		GameState::NOT_IMPLEMENTED,
 		GameState::ABOUT,
 		GameState::OPTIONS,

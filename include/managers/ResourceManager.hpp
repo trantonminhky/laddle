@@ -13,7 +13,7 @@ enum class GameState
 	NOT_IMPLEMENTED
 };
 
-namespace GameContext
+namespace ResourceManager
 {
 	extern std::unique_ptr<FontManager> fontManagerPtr;
 	void init();

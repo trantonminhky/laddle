@@ -1,6 +1,6 @@
-#include "contexts/GameContext.hpp"
+#include "managers/ResourceManager.hpp"
 
-namespace GameContext
+namespace ResourceManager
 {
 	GameState currentState = GameState::MAIN_MENU;
 	std::unique_ptr<FontManager> fontManagerPtr;
