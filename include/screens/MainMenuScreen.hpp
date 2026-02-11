@@ -8,7 +8,7 @@ class MainMenuScreen : public BaseScreen
 public:
 	explicit MainMenuScreen() : BaseScreen() {}
 
-	void handleInput(const sf::Event& event) override;
+	bool handleInput(const sf::Event& event) override;
 	void update() override;
 	void draw(sf::RenderTarget& window) override;
 

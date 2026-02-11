@@ -2,9 +2,9 @@
 
 #include "contexts/GameContext.hpp"
 
-void NotImplementedScreen::handleInput(const sf::Event& event)
+bool NotImplementedScreen::handleInput(const sf::Event& event)
 {
-
+	return true;
 }
 
 void NotImplementedScreen::update()

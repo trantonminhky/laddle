@@ -18,9 +18,9 @@ public:
 	static void advance(GameState nextState);
 	static void retreat();
 
-	void handleInputCurrentScreen(const sf::Event& event);
-	void updateCurrentScreen();
-	void drawCurrentScreen(sf::RenderTarget& window);
+	bool handleInput(const sf::Event& event);
+	void update();
+	void draw(sf::RenderTarget& window);
 
 	GameState getCurrentState() const;
 

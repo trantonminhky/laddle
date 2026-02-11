@@ -74,12 +74,12 @@ void Program::run()
 				while (const std::optional event = window.pollEvent())
 				{
 					if (event->is<sf::Event::Closed>() || p_screenManager->shouldExit()) window.close();
-					p_screenManager->handleInputCurrentScreen(*event);
+					p_screenManager->handleInput(*event);
 				}
-				p_screenManager->updateCurrentScreen();
+				p_screenManager->update();
 				
 				window.clear();
-				p_screenManager->drawCurrentScreen(window);
+				p_screenManager->draw(window);
 				window.display();
 			}
 			break;

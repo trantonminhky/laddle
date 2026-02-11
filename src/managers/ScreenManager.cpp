@@ -43,19 +43,19 @@ void ScreenManager::retreat()
 	p_screenStack.pop();
 }
 
-void ScreenManager::handleInputCurrentScreen(const sf::Event& event)
+bool ScreenManager::handleInput(const sf::Event& event)
 {
 	swag_assert(!p_screenStack.empty());
-	p_screenStack.top()->handleInput(event);
+	return p_screenStack.top()->handleInput(event);
 }
 
-void ScreenManager::updateCurrentScreen()
+void ScreenManager::update()
 {
 	swag_assert(!p_screenStack.empty());
 	p_screenStack.top()->update();
 }
 
-void ScreenManager::drawCurrentScreen(sf::RenderTarget& window)
+void ScreenManager::draw(sf::RenderTarget& window)
 {
 	swag_assert(!p_screenStack.empty());
 	p_screenStack.top()->draw(window);

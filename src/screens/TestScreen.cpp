@@ -6,7 +6,7 @@
 
 #include "helper/centerTextInRect.hpp"
 
-void TestScreen::handleInput(const sf::Event& event)
+bool TestScreen::handleInput(const sf::Event& event)
 {
 	if (event.is<sf::Event::KeyPressed>())
 	{
@@ -28,8 +28,10 @@ void TestScreen::handleInput(const sf::Event& event)
 				p_row.shake();
 			}
 		}
+		return true;
 	}
-	else if (event.is<sf::Event::TextEntered>())
+
+	if (event.is<sf::Event::TextEntered>())
 	{
 		auto letter = event.getIf<sf::Event::TextEntered>()->unicode;
 		if (letter >= 'a' && letter <= 'z')
@@ -39,7 +41,11 @@ void TestScreen::handleInput(const sf::Event& event)
 				p_row.pushLetter(letter);
 			}
 		}
+
+		return true;
 	}
+
+	return false;
 }
 
 void TestScreen::update()

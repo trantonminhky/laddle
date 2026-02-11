@@ -13,7 +13,7 @@ constexpr auto SETTINGS_TEXT_Y_POSITION = 460.0f;
 constexpr auto EXIT_TEXT_Y_POSITION = 540.0f;
 constexpr auto TEST_TEXT_Y_POSITION = 620.0f;
 
-void MainMenuScreen::handleInput(const sf::Event& event)
+bool MainMenuScreen::handleInput(const sf::Event& event)
 {
 	if (event.is<sf::Event::KeyPressed>())
 	{
@@ -30,7 +30,10 @@ void MainMenuScreen::handleInput(const sf::Event& event)
 		{
 			ScreenManager::advance(p_nextState[p_selector]);
 		}
+		return true;
 	}
+
+	return false;
 }
 
 void MainMenuScreen::update()
