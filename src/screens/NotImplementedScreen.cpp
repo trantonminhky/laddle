@@ -1,10 +1,22 @@
 #include "screens/NotImplementedScreen.hpp"
 
 #include "managers/ResourceManager.hpp"
+#include "managers/ScreenManager.hpp"
 
 bool NotImplementedScreen::handleInput(const sf::Event& event)
 {
-	return true;
+	bool captured = false;
+	ResourceManager::checkActions(event);
+
+	if (ResourceManager::hasAction(GameAction::NOT_IMPLEMENTED_EXIT))
+	{
+		ScreenManager::retreat();
+		captured = true;
+	}
+
+	ResourceManager::clearActions();
+
+	return captured;
 }
 
 void NotImplementedScreen::update()

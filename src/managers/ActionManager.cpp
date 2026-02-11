@@ -3,7 +3,13 @@
 void ActionManager::checkActions(const sf::Event& event)
 {
 	auto keyPressedEvent = event.getIf<sf::Event::KeyPressed>();
+	auto textEnteredEvent = event.getIf<sf::Event::TextEntered>();
 
+	/*
+		#######################################
+		############# MAIN MENU ###############
+		#######################################
+	*/
 	if (keyPressedEvent)
 	{
 		auto scancode = keyPressedEvent->scancode;
@@ -19,12 +25,40 @@ void ActionManager::checkActions(const sf::Event& event)
 			scancode == sf::Keyboard::Scan::Enter ||
 			scancode == sf::Keyboard::Scan::Z
 		) ? true : false;
-		p_actionStates[GameAction::EXIT_TO_MAIN_MENU] = (
+	}
+
+	/*
+		#######################################
+		########### NOT IMPLEMENTED ###########
+		#######################################
+	*/
+	if (keyPressedEvent)
+	{
+		auto scancode = keyPressedEvent->scancode;
+		p_actionStates[GameAction::NOT_IMPLEMENTED_EXIT] = (
 			scancode == sf::Keyboard::Scan::Backspace ||
 			scancode == sf::Keyboard::Scan::X
 		) ? true : false;
 	}
 
+	/*
+		########################################
+		################# TEST #################
+		########################################
+	*/
+	if (keyPressedEvent)
+	{
+		auto scancode = keyPressedEvent->scancode;
+		p_actionStates[GameAction::TEST_EXIT] = (
+			scancode == sf::Keyboard::Scan::Escape
+		) ? true : false;
+		p_actionStates[GameAction::TEST_BACKSPACE] = (
+			scancode == sf::Keyboard::Scan::Backspace
+		) ? true : false;
+		p_actionStates[GameAction::TEST_ENTER] = (
+			scancode == sf::Keyboard::Scan::Enter
+		) ? true : false;
+	}
 }
 
 bool ActionManager::hasAction(const GameAction& action) const

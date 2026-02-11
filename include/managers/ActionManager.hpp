@@ -2,14 +2,20 @@
 #include <array>
 #include <SFML/Graphics.hpp>
 
-constexpr auto GAME_ACTIONS_COUNT = 4;
+constexpr auto GAME_ACTIONS_COUNT = 8;
 
 enum GameAction
 {
 	MAIN_MENU_MOVE_UP,
 	MAIN_MENU_MOVE_DOWN,
 	MAIN_MENU_SELECT,
-	EXIT_TO_MAIN_MENU
+
+	NOT_IMPLEMENTED_EXIT,
+	
+	TEST_TYPE,
+	TEST_BACKSPACE,
+	TEST_ENTER,
+	TEST_EXIT
 };
 
 class ActionManager
