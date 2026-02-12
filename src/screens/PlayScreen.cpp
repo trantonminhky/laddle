@@ -16,7 +16,7 @@
 PlayScreen::PlayScreen() : BaseScreen()
 {
 	Row initialRow;
-	initialRow.setPosition(100.0f, 100.0f);
+	initialRow.setPosition(350.0f, 350.0f);
 	p_rowStack.push_back(initialRow);
 
 	p_answer = vecrand(ResourceManager::lexicon);
@@ -44,6 +44,12 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		{
 			p_rowStack.pop_back();
 			// do not use rowStackTop here, the stack was popped
+
+			for (Row& row : p_rowStack)
+			{
+				row.setPosition(row.getPosition().x, row.getPosition().y + 90);
+			}
+
 			p_rowStack.back().resetState();
 		}
 		else
@@ -73,8 +79,14 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		{
 			rowStackTop.check(p_answer);
 
+			for (Row& row : p_rowStack)
+			{
+				row.setPosition(row.getPosition().x, row.getPosition().y - 90);
+			}
+
 			Row newRow;
-			newRow.setPosition(rowStackTop.getPosition().x, rowStackTop.getPosition().y + 90);
+			// newRow.setPosition(rowStackTop.getPosition().x, rowStackTop.getPosition().y + 90);
+			newRow.setPosition(350.0f, 350.0f);
 			p_rowStack.push_back(newRow);
 
 			p_message = "Go on...";
