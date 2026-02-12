@@ -1,7 +1,10 @@
 #include "app/Program.hpp"
 #include "app/solve.hpp"
-#include "app/globals.hpp"
-#include "contexts/GameContext.hpp"
+
+#include "managers/ResourceManager.hpp"
+
+#include "screens/MainMenuScreen.hpp"
+
 #include <iostream>
 #include <optional>
 #include <SFML/Graphics.hpp>
@@ -42,7 +45,7 @@ void Program::run()
 		case Mode::NONE:
 		case Mode::HELP:
 		{
-			std::cout << "\t-h\t-\tShow list of options\n\t-s\t-\tSolve word ladder\n";
+			std::cout << "\t-h\t-\tShow list of options\n\t-s\t-\tSolve word ladder\n\t-g\t-\tStart Laddle\n";
 			break;
 		}
 
@@ -60,19 +63,24 @@ void Program::run()
 		case Mode::GAME:
 		{
 			sf::RenderWindow window(sf::VideoMode({1200, 800}), "poop");
-			screenPtr = std::make_unique<TestScreen>(window);
 
-			GameContext::init();
+			ResourceManager::init();
+
+			p_screenManager = std::make_unique<ScreenManager>();
+			p_screenManager->init();
 
 			while (window.isOpen())
 			{
 				while (const std::optional event = window.pollEvent())
 				{
-					if (event->is<sf::Event::Closed>()) window.close();
-					screenPtr->handleInput(*event);
+					if (event->is<sf::Event::Closed>() || p_screenManager->shouldExit()) window.close();
+					p_screenManager->handleInput(*event);
 				}
-				screenPtr->update();
-				screenPtr->draw();
+				p_screenManager->update();
+				
+				window.clear();
+				p_screenManager->draw(window);
+				window.display();
 			}
 			break;
 		}

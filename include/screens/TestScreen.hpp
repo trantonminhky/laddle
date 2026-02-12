@@ -5,16 +5,17 @@
 class TestScreen : public BaseScreen
 {
 public:
-	explicit TestScreen(sf::RenderWindow& window) : BaseScreen(window) {
+	explicit TestScreen() : BaseScreen() {
 		p_row.setPosition(300.0f, 300.0f);
 	}
 
-	void handleInput(const sf::Event& event) override;
+	bool handleInput(const sf::Event& event) override;
 	void update() override;
-	void draw() override;
+	void draw(sf::RenderTarget& window) override;
 
 	~TestScreen() = default;
 
 private:
 	Row p_row;
+	bool p_ignoreFirstFrame = true;
 };

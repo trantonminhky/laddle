@@ -1,6 +1,6 @@
 #include <cmath>
 #include "ui/Row.hpp"
-#include "contexts/GameContext.hpp"
+#include "managers/ResourceManager.hpp"
 #include "helper/swag_assert.hpp"
 #include "helper/centerTextInRect.hpp"
 
@@ -136,7 +136,7 @@ void Row::update()
 void Row::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	sf::Vector2f currentTilePosition = getPosition();
-	const sf::Font& font = GameContext::getFont("VCR_OSD_MONO");
+	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	for (int i = 0; i < WORD_LENGTH; i++)
 	{
 		sf::RectangleShape tileRect({80.0f, 80.f});

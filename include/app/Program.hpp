@@ -1,14 +1,16 @@
 #pragma once
-#include "helper/splitToInteger.hpp"
-#include "Types.hpp"
-#include "screens/BaseScreen.hpp"
-#include "screens/TestScreen.hpp"
 #include <vector>
 #include <string>
 #include <unordered_set>
 #include <fstream>
 #include <utility>
 #include <memory>
+
+#include "helper/splitToInteger.hpp"
+
+#include "Types.hpp"
+
+#include "managers/ScreenManager.hpp"
 
 // /////////////////////////////////////
 // PROGRAM MODES
@@ -47,7 +49,7 @@ private:
 	ProgramFlags p_flags;
 
 	// -g state
-	std::unique_ptr<BaseScreen> screenPtr;
+	std::unique_ptr<ScreenManager> p_screenManager;
 
 	// helper functions
 	void p_loadFromTxt();
