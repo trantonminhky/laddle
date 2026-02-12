@@ -63,7 +63,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 	}
 	else if (ResourceManager::hasAction(GameAction::TEST_ENTER))
 	{
-		if (p_rowStack.back().isFull()) 
+		if (p_rowStack.back().isFull() && p_lexicon.find(p_rowStack.back().getWord()) != p_lexicon.cend()) 
 		{
 			p_rowStack.back().check(p_answer);
 
