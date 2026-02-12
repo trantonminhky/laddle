@@ -14,6 +14,11 @@ bool Row::isFull() const
 	return p_iterator >= WORD_LENGTH;
 }
 
+bool Row::isEmpty() const
+{
+	return p_iterator == 0;
+}
+
 sf::Vector2f Row::getPosition() const
 {
 	if (shakeClock.toggle) return getAnimatedPosition();

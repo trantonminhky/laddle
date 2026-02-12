@@ -13,6 +13,7 @@ public:
 	explicit Row();
 
 	bool isFull() const;
+	bool isEmpty() const;
 
 	sf::Vector2f getPosition() const;
 	sf::Vector2f getBasePosition() const;
