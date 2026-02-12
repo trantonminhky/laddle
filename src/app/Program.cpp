@@ -9,32 +9,8 @@
 #include <optional>
 #include <SFML/Graphics.hpp>
 
-void Program::p_loadFromTxt()
-{
-	std::ifstream fin("assets/lexicon/words.txt");
-	std::string input;
-	while (getline(fin, input))
-	{
-		p_wordList.push_back(input);
-	}
-	fin.close();
-	fin.open("assets/lexicon/adj_list.txt");
-	for (int i = 0; getline(fin, input); i++)
-	{
-		Neighbor neighbors = splitToInteger(input, ' ');
-		AdjacencyListEntry entry = AdjacencyListEntry(i, neighbors);
-		p_adjList.push_back(entry);
-	}
-}
-
-void Program::p_init()
-{
-	p_loadFromTxt();
-}
-
 Program::Program(ProgramFlags flags) : p_flags(flags)
 {
-	p_init();
 	std::cout << "Program init\n";
 }
 
@@ -51,10 +27,10 @@ void Program::run()
 
 		case Mode::SOLVE:
 		{
-			auto result = solve(p_adjList, p_wordList, p_flags.solveFlagSrc, p_flags.solveFlagDest);
+			auto result = solve(ResourceManager::adjList, ResourceManager::lexicon, p_flags.solveFlagSrc, p_flags.solveFlagDest);
 			for (const int& entry : result)
 			{
-				std::cout << p_wordList[entry] << " ";
+				std::cout << ResourceManager::lexicon[entry] << " ";
 			}
 			std::cout << '\n';
 			break;

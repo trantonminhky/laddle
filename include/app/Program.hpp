@@ -41,17 +41,9 @@ public:
 	Program& operator=(Program&& other) = delete;
 
 private:
-	// internal data
-	std::vector<std::string> p_wordList;
-	std::vector<AdjacencyListEntry> p_adjList;
-
 	// current app mode
 	ProgramFlags p_flags;
 
 	// -g state
 	std::unique_ptr<ScreenManager> p_screenManager;
-
-	// helper functions
-	void p_loadFromTxt();
-	void p_init();
 };

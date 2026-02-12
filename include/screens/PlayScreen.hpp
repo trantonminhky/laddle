@@ -22,8 +22,5 @@ private:
 	std::vector<Row> p_rowStack;
 	std::string p_answer;
 
-	std::unordered_set<std::string> p_lexicon;
-	std::vector<AdjacencyListEntry> p_adjList;
-
 	bool p_ignoreFirstFrame = true;
 };

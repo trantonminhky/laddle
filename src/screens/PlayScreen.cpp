@@ -1,14 +1,17 @@
 #include <iostream>
 #include <fstream>
 
+#include <app/solve.hpp>
+
 #include "screens/PlayScreen.hpp"
 
 #include "managers/ResourceManager.hpp"
 #include "managers/ScreenManager.hpp"
 
 #include "helper/splitToInteger.hpp"
+#include "algo/binarySearch.hpp"
 #include "helper/centerTextInRect.hpp"
-#include "helper/undsetPseudorandom.hpp"
+#include "helper/vecrand.hpp"
 
 PlayScreen::PlayScreen() : BaseScreen()
 {
@@ -16,23 +19,7 @@ PlayScreen::PlayScreen() : BaseScreen()
 	initialRow.setPosition(100.0f, 100.0f);
 	p_rowStack.push_back(initialRow);
 
-	std::ifstream fin("assets/lexicon/words.txt");
-	std::string input;
-	while (getline(fin, input))
-	{
-		p_lexicon.insert(input);
-	}
-	fin.close();
-	fin.open("assets/lexicon/adj_list.txt");
-	for (int i = 0; getline(fin, input); i++)
-	{
-		Neighbor neighbors = splitToInteger(input, ' ');
-		AdjacencyListEntry entry = AdjacencyListEntry(i, neighbors);
-		p_adjList.push_back(entry);
-	}
-
-	// TO-DO: IMPLEMENT RANDOM ANSWER WORDS
-	p_answer = undsetPseudorandom(p_lexicon);
+	p_answer = vecrand(ResourceManager::lexicon);
 }
 
 bool PlayScreen::handleInput(const sf::Event& event)
@@ -65,8 +52,10 @@ bool PlayScreen::handleInput(const sf::Event& event)
 	}
 	else if (ResourceManager::hasAction(GameAction::TEST_ENTER))
 	{
-		if (p_rowStack.back().isFull() && p_lexicon.find(p_rowStack.back().getWord()) != p_lexicon.cend()) 
+		
+		if (p_rowStack.back().isFull() && binarySearch(ResourceManager::lexicon.cbegin(), ResourceManager::lexicon.cend(), p_rowStack.back().getWord())) 
 		{
+			auto path = solve(ResourceManager::adjList, ResourceManager::lexicon, p_rowStack.back().getWord(), p_answer);
 			p_rowStack.back().check(p_answer);
 
 			Row newRow;

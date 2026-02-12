@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Types.hpp"
+
 #include "managers/FontManager.hpp"
 #include "managers/ActionManager.hpp"
 
@@ -19,6 +22,8 @@ namespace ResourceManager
 {
 	extern std::unique_ptr<FontManager> fontManagerPtr;
 	extern std::unique_ptr<ActionManager> actionManagerPtr;
+	extern std::vector<std::string> lexicon;
+	extern std::vector<AdjacencyListEntry> adjList;
 	void init();
 
 	template <typename ...Ts>
