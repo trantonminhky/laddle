@@ -12,38 +12,17 @@
 
 #include "managers/ScreenManager.hpp"
 
-// /////////////////////////////////////
-// PROGRAM MODES
-enum class Mode
-{
-	NONE,
-	HELP,
-	SOLVE,
-	GAME
-};
-
-struct ProgramFlags
-{
-	Mode mode = Mode::NONE;
-	std::string solveFlagSrc;
-	std::string solveFlagDest;
-};
-
 class Program
 {
 public:
 	void run();
 
-	explicit Program(ProgramFlags flags);
+	explicit Program() = default;
 	Program(const Program& other) = delete;
 	Program& operator=(const Program& other) = delete;
 	Program(Program&& other) = delete;
 	Program& operator=(Program&& other) = delete;
 
 private:
-	// current app mode
-	ProgramFlags p_flags;
-
-	// -g state
 	std::unique_ptr<ScreenManager> p_screenManager;
 };
