@@ -156,7 +156,7 @@ void Row::update()
 	}
 }
 
-void Row::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Row::draw(sf::RenderTarget& target, sf::RenderStates states [[maybe_unused]]) const
 {
 	sf::Vector2f currentTilePosition = getPosition();
 	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");

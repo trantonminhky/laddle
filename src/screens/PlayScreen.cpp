@@ -34,18 +34,13 @@ PlayScreen::PlayScreen() : BaseScreen()
 	p_rowStack.back().check(p_answer);
 
 	auto solvedPath = solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer);
-	for (const auto& entry : solvedPath)
-	{
-		std::cout << ResourceManager::lexicon[entry] << ' ';
-	}
-	std::cout << std::endl;
 
 	Row newRow;
 
 	p_rowStack.push_back(newRow);
 	p_iterator++;
 
-	p_message = "Go on...";
+	p_message = "go on...";
 }
 
 bool PlayScreen::handleInput(const sf::Event& event)
@@ -87,7 +82,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 	{
 		if (p_detachedHead)
 		{
-			p_message = "get back to yo row u epstein or sum";
+			p_message = "kid get back to your row";
 		}
 		else if (!rowStackTop.isFull())
 		{
@@ -97,12 +92,12 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		else if (hammingDistance(rowStackTop.getWord(), (*(p_rowStack.cend() - 2)).getWord()) != 1)
 		{
 			rowStackTop.shake();
-			p_message = "that will not make a fucking ladder";
+			p_message = "kid that will not make a ladder";
 		}
 		else if (!binarySearch(ResourceManager::lexicon.cbegin(), ResourceManager::lexicon.cend(), rowStackTop.getWord()))
 		{
 			rowStackTop.shake();
-			p_message = "nigga are u illiterate that ain't an english word";
+			p_message = "kid that ain't an english word";
 		}
 		else if (solve(ResourceManager::adjList, ResourceManager::lexicon, rowStackTop.getWord(), p_answer).empty())
 		{
@@ -118,7 +113,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 			p_rowStack.push_back(newRow);
 			p_iterator++;
 
-			p_message = "Go on...";
+			p_message = "go on...";
 		}
 		captured = true;
 	}

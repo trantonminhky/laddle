@@ -3,7 +3,6 @@
 void ActionManager::checkActions(const sf::Event& event)
 {
 	auto keyPressedEvent = event.getIf<sf::Event::KeyPressed>();
-	auto textEnteredEvent = event.getIf<sf::Event::TextEntered>();
 
 	/*
 		#######################################
