@@ -137,10 +137,24 @@ void PlayScreen::draw(sf::RenderTarget& window)
 	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	sf::Text messageText(font, p_message, 50);
 
+	int stackSize = p_rowStack.size();
 	auto rowDrawingStartIndex = p_iterator - 3;
 	auto rowDrawingEndIndex = p_iterator + 4;
 
-	int stackSize = p_rowStack.size();
+	if (rowDrawingStartIndex > 0)
+	{
+		sf::Text ellipsisUpText(font, "...", 50);
+		ellipsisUpText.setPosition({800.0f, 100.0f});
+		window.draw(ellipsisUpText);
+	}
+	
+	if (rowDrawingEndIndex < stackSize - 1)
+	{
+		sf::Text ellipsisDownText(font, "...", 50);
+		ellipsisDownText.setPosition({800.0f, 700.0f});
+		window.draw(ellipsisDownText);
+	}
+
 
 	for (int i = rowDrawingStartIndex; i < rowDrawingEndIndex; i++)
 	{
@@ -149,7 +163,6 @@ void PlayScreen::draw(sf::RenderTarget& window)
 			p_rowStack[i].setPosition(350.0f, 350.0f + 90 * (i - p_iterator));
 			window.draw(p_rowStack[i]);
 		}
-
 	}
 	window.draw(messageText);
 }
