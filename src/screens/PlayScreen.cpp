@@ -43,6 +43,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		if (rowStackTop.isEmpty() && p_rowStack.size() != 1)
 		{
 			p_rowStack.pop_back();
+			p_iterator--;
 			// do not use rowStackTop here, the stack was popped
 
 			for (Row& row : p_rowStack)
@@ -85,9 +86,10 @@ bool PlayScreen::handleInput(const sf::Event& event)
 			}
 
 			Row newRow;
-			// newRow.setPosition(rowStackTop.getPosition().x, rowStackTop.getPosition().y + 90);
 			newRow.setPosition(350.0f, 350.0f);
+			
 			p_rowStack.push_back(newRow);
+			p_iterator++;
 
 			p_message = "Go on...";
 		}
