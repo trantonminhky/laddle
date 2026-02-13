@@ -87,7 +87,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 
 			Row newRow;
 			newRow.setPosition(350.0f, 350.0f);
-			
+
 			p_rowStack.push_back(newRow);
 			p_iterator++;
 
@@ -125,9 +125,12 @@ void PlayScreen::draw(sf::RenderTarget& window)
 	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	sf::Text messageText(font, p_message, 50);
 
-	for (const Row& row : p_rowStack)
+	auto startIndex = std::max<int>(p_iterator - 3, 0);
+	auto endIndex = std::min<int>(p_iterator + 4, p_rowStack.size());
+
+	for (int i = startIndex; i < endIndex; i++)
 	{
-		window.draw(row);
+		window.draw(p_rowStack[i]);
 	}
 	window.draw(messageText);
 }
