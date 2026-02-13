@@ -5,7 +5,8 @@
 class TestScreen : public BaseScreen
 {
 public:
-	explicit TestScreen() : BaseScreen() {
+	explicit TestScreen() : BaseScreen()
+	{
 		p_row.setPosition(300.0f, 300.0f);
 	}
 

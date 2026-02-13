@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Types.hpp"
+
 #include "managers/FontManager.hpp"
 #include "managers/ActionManager.hpp"
 
@@ -8,6 +11,7 @@ enum class GameState
 {
 	NONE,
 	MAIN_MENU,
+	PLAY,
 	ABOUT,
 	OPTIONS,
 	TEST,
@@ -18,6 +22,9 @@ namespace ResourceManager
 {
 	extern std::unique_ptr<FontManager> fontManagerPtr;
 	extern std::unique_ptr<ActionManager> actionManagerPtr;
+	extern std::vector<std::string> lexicon;
+	extern std::vector<std::string> concordance;
+	extern std::vector<AdjacencyListEntry> adjList;
 	void init();
 
 	template <typename ...Ts>

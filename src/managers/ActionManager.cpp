@@ -37,7 +37,8 @@ void ActionManager::checkActions(const sf::Event& event)
 		auto scancode = keyPressedEvent->scancode;
 		p_actionStates[GameAction::NOT_IMPLEMENTED_EXIT] = (
 			scancode == sf::Keyboard::Scan::Backspace ||
-			scancode == sf::Keyboard::Scan::X
+			scancode == sf::Keyboard::Scan::X ||
+			scancode == sf::Keyboard::Scan::Escape
 		);
 	}
 
@@ -56,6 +57,31 @@ void ActionManager::checkActions(const sf::Event& event)
 			scancode == sf::Keyboard::Scan::Backspace
 		);
 		p_actionStates[GameAction::TEST_ENTER] = (
+			scancode == sf::Keyboard::Scan::Enter
+		);
+	}
+
+	/*
+		########################################
+		################# PLAY #################
+		########################################
+	*/
+	if (keyPressedEvent)
+	{
+		auto scancode = keyPressedEvent->scancode;
+		p_actionStates[GameAction::PLAY_MOVE_PREVIOUS_ROW] = (
+			scancode == sf::Keyboard::Scan::Up
+		);
+		p_actionStates[GameAction::PLAY_MOVE_NEXT_ROW] = (
+			scancode == sf::Keyboard::Scan::Down
+		);
+		p_actionStates[GameAction::PLAY_EXIT] = (
+			scancode == sf::Keyboard::Scan::Escape
+		);
+		p_actionStates[GameAction::PLAY_BACKSPACE] = (
+			scancode == sf::Keyboard::Scan::Backspace
+		);
+		p_actionStates[GameAction::PLAY_ENTER] = (
 			scancode == sf::Keyboard::Scan::Enter
 		);
 	}

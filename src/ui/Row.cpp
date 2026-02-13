@@ -1,6 +1,10 @@
 #include <cmath>
+#include <iostream>
+
 #include "ui/Row.hpp"
+
 #include "managers/ResourceManager.hpp"
+
 #include "helper/swag_assert.hpp"
 #include "helper/centerTextInRect.hpp"
 
@@ -12,6 +16,11 @@ Row::Row()
 bool Row::isFull() const
 {
 	return p_iterator >= WORD_LENGTH;
+}
+
+bool Row::isEmpty() const
+{
+	return p_iterator == 0;
 }
 
 sf::Vector2f Row::getPosition() const
@@ -37,6 +46,11 @@ void Row::setPosition(const float& x, const float& y)
 	p_position.y = y;
 }
 
+void Row::setPosition(const sf::Vector2f& vecf)
+{
+	p_position = vecf;
+}
+
 Tile Row::getTileAtIndex(const int& i) const
 {
 	swag_assert(i >= 0 && i < WORD_LENGTH);
@@ -56,15 +70,16 @@ std::array<TileState, WORD_LENGTH> Row::getState() const
 
 void Row::check(const std::string& target)
 {
-	int freq[26] = {0};
+	std::array<int, 26> freq;
+	freq.fill(0);
 
 	for (int i = 0; i < WORD_LENGTH; i++)
 	{
-		Tile tile = p_tiles[i];
+		Tile& tile = p_tiles[i];
 		const char targetLetter = target[i];
 
 		if (tile.getLetter() == targetLetter) tile.setState(TileState::CORRECT);
-		else freq[tile.getLetter() - 'a']++;
+		else freq[targetLetter - 'a']++;
 	}
 
 	for (Tile& tile : p_tiles)
@@ -117,10 +132,18 @@ void Row::reset()
 	p_iterator = 0;
 }
 
+void Row::resetState()
+{
+	for (Tile& tile : p_tiles)
+	{
+		tile.setState(TileState::NONE);
+	}
+}
+
 void Row::shake()
 {
 	shakeClock.toggle = true;
-	shakeClock.clock.start();
+	shakeClock.clock.restart();
 }
 
 void Row::update()
@@ -141,6 +164,18 @@ void Row::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		sf::RectangleShape tileRect({80.0f, 80.f});
 		tileRect.setPosition(currentTilePosition);
+		if (getTileAtIndex(i).getState() == TileState::MISPLACED)
+		{
+			tileRect.setFillColor(sf::Color(255, 252, 114));
+		}
+		else if (getTileAtIndex(i).getState() == TileState::CORRECT)
+		{
+			tileRect.setFillColor(sf::Color(127, 163, 92));
+		}
+		else
+		{
+			tileRect.setFillColor(sf::Color(255, 255, 255));
+		}
 
 		auto tileLetter = getTileAtIndex(i).getLetter();
 		sf::Text tileLetterText(font, tileLetter, 80);

@@ -13,11 +13,13 @@ public:
 	explicit Row();
 
 	bool isFull() const;
+	bool isEmpty() const;
 
 	sf::Vector2f getPosition() const;
 	sf::Vector2f getBasePosition() const;
 	sf::Vector2f getAnimatedPosition() const;
 	void setPosition(const float& x, const float& y);
+	void setPosition(const sf::Vector2f& vecf);
 
 	Tile getTileAtIndex(const int& i) const;
 
@@ -28,6 +30,7 @@ public:
 	void pushLetter(const char& letter);
 	char popLetter();
 	void reset();
+	void resetState();
 
 	void shake();
 

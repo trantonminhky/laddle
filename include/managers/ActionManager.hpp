@@ -2,7 +2,7 @@
 #include <array>
 #include <SFML/Graphics.hpp>
 
-constexpr auto GAME_ACTIONS_COUNT = 8;
+constexpr auto GAME_ACTIONS_COUNT = 12;
 
 enum GameAction
 {
@@ -12,10 +12,15 @@ enum GameAction
 
 	NOT_IMPLEMENTED_EXIT,
 	
-	TEST_TYPE,
 	TEST_BACKSPACE,
 	TEST_ENTER,
-	TEST_EXIT
+	TEST_EXIT,
+
+	PLAY_MOVE_PREVIOUS_ROW,
+	PLAY_MOVE_NEXT_ROW,
+	PLAY_BACKSPACE,
+	PLAY_ENTER,
+	PLAY_EXIT
 };
 
 class ActionManager
