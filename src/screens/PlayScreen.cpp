@@ -16,7 +16,6 @@
 PlayScreen::PlayScreen() : BaseScreen()
 {
 	Row initialRow;
-	initialRow.setPosition(350.0f, 350.0f);
 	p_rowStack.push_back(initialRow);
 
 	p_answer = vecrand(ResourceManager::lexicon);
@@ -40,28 +39,30 @@ bool PlayScreen::handleInput(const sf::Event& event)
 	}
 	else if (ResourceManager::hasAction(GameAction::PLAY_BACKSPACE))
 	{
-		if (rowStackTop.isEmpty() && p_rowStack.size() != 1)
+		if (!p_detachedHead)
 		{
-			p_rowStack.pop_back();
-			p_iterator--;
-			// do not use rowStackTop here, the stack was popped
-
-			for (Row& row : p_rowStack)
+			if (rowStackTop.isEmpty() && p_rowStack.size() != 1)
 			{
-				row.setPosition(row.getPosition().x, row.getPosition().y + 90);
+				p_rowStack.pop_back();
+				p_iterator--;
+				// do not use rowStackTop here, the stack was popped
+	
+				p_rowStack.back().resetState();
 			}
-
-			p_rowStack.back().resetState();
-		}
-		else
-		{
-			rowStackTop.popLetter();
+			else
+			{
+				rowStackTop.popLetter();
+			}
 		}
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::PLAY_ENTER))
 	{
-		if (!rowStackTop.isFull())
+		if (p_detachedHead)
+		{
+			p_message = "get back to yo row u epstein or sum";
+		}
+		else if (!rowStackTop.isFull())
 		{
 			rowStackTop.shake();
 			p_message = "kid that ain't a 5 letter word";
@@ -80,13 +81,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		{
 			rowStackTop.check(p_answer);
 
-			for (Row& row : p_rowStack)
-			{
-				row.setPosition(row.getPosition().x, row.getPosition().y - 90);
-			}
-
 			Row newRow;
-			newRow.setPosition(350.0f, 350.0f);
 
 			p_rowStack.push_back(newRow);
 			p_iterator++;
@@ -95,9 +90,26 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		}
 		captured = true;
 	}
+	else if (ResourceManager::hasAction(GameAction::PLAY_MOVE_PREVIOUS_ROW))
+	{
+		if (p_iterator > 0)
+		{
+			p_iterator--;
+			p_detachedHead = true;
+		}
+	}
+	else if (ResourceManager::hasAction(GameAction::PLAY_MOVE_NEXT_ROW))
+	{
+		int stackSize = p_rowStack.size();
+		if (p_iterator < stackSize - 1)
+		{
+			if (p_iterator == stackSize - 2) p_detachedHead = false;
+			p_iterator++;
+		}
+	}
 
 	
-	if (event.is<sf::Event::TextEntered>())
+	if (event.is<sf::Event::TextEntered>() && !p_detachedHead)
 	{
 		auto letter = event.getIf<sf::Event::TextEntered>()->unicode;
 		if (letter >= 'a' && letter <= 'z')
@@ -125,12 +137,19 @@ void PlayScreen::draw(sf::RenderTarget& window)
 	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	sf::Text messageText(font, p_message, 50);
 
-	auto startIndex = std::max<int>(p_iterator - 3, 0);
-	auto endIndex = std::min<int>(p_iterator + 4, p_rowStack.size());
+	auto rowDrawingStartIndex = p_iterator - 3;
+	auto rowDrawingEndIndex = p_iterator + 4;
 
-	for (int i = startIndex; i < endIndex; i++)
+	int stackSize = p_rowStack.size();
+
+	for (int i = rowDrawingStartIndex; i < rowDrawingEndIndex; i++)
 	{
-		window.draw(p_rowStack[i]);
+		if (i >= 0 && i < stackSize)
+		{
+			p_rowStack[i].setPosition(350.0f, 350.0f + 90 * (i - p_iterator));
+			window.draw(p_rowStack[i]);
+		}
+
 	}
 	window.draw(messageText);
 }
