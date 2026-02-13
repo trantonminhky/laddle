@@ -9,9 +9,11 @@
 #include "managers/ScreenManager.hpp"
 
 #include "helper/splitToInteger.hpp"
-#include "algo/binarySearch.hpp"
 #include "helper/centerTextInRect.hpp"
 #include "helper/vecrand.hpp"
+#include "helper/hammingDistance.hpp"
+
+#include "algo/binarySearch.hpp"
 
 PlayScreen::PlayScreen() : BaseScreen()
 {
@@ -19,6 +21,31 @@ PlayScreen::PlayScreen() : BaseScreen()
 	p_rowStack.push_back(initialRow);
 
 	p_answer = vecrand(ResourceManager::lexicon);
+	do
+	{
+		p_source = vecrand(ResourceManager::lexicon);
+	}
+	while (solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer).empty());
+
+	for (const char& c : p_source)
+	{
+		p_rowStack.back().pushLetter(c);
+	}
+	p_rowStack.back().check(p_answer);
+
+	auto solvedPath = solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer);
+	for (const auto& entry : solvedPath)
+	{
+		std::cout << ResourceManager::lexicon[entry] << ' ';
+	}
+	std::cout << std::endl;
+
+	Row newRow;
+
+	p_rowStack.push_back(newRow);
+	p_iterator++;
+
+	p_message = "Go on...";
 }
 
 bool PlayScreen::handleInput(const sf::Event& event)
@@ -41,7 +68,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 	{
 		if (!p_detachedHead)
 		{
-			if (rowStackTop.isEmpty() && p_rowStack.size() != 1)
+			if (rowStackTop.isEmpty() && p_rowStack.size() > 2)
 			{
 				p_rowStack.pop_back();
 				p_iterator--;
@@ -66,6 +93,11 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		{
 			rowStackTop.shake();
 			p_message = "kid that ain't a 5 letter word";
+		}
+		else if (hammingDistance(rowStackTop.getWord(), (*(p_rowStack.cend() - 2)).getWord()) != 1)
+		{
+			rowStackTop.shake();
+			p_message = "that will not make a fucking ladder";
 		}
 		else if (!binarySearch(ResourceManager::lexicon.cbegin(), ResourceManager::lexicon.cend(), rowStackTop.getWord()))
 		{

@@ -23,6 +23,7 @@ private:
 	int p_iterator = 0;
 	bool p_detachedHead = false;
 
+	std::string p_source;
 	std::string p_answer;
 	std::string p_message = "Go on...";
 
