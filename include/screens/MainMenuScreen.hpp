@@ -22,4 +22,8 @@ private:
 		GameState::NONE,
 		GameState::TEST
 	};
+
+	void p_drawTitle(sf::RenderTarget& window, const sf::Font& font);
+	void p_drawMenuOptions(sf::RenderTarget& window, const sf::Font& font);
+	void p_drawSelector(sf::RenderTarget& window, const sf::Font& font);
 };

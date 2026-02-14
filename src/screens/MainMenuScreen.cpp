@@ -7,11 +7,24 @@
 #include "managers/ScreenManager.hpp"
 
 constexpr auto LADDLE_TEXT_Y_POSITION = 100.0f;
-constexpr auto PLAY_TEXT_Y_POSITION = 300.0f;
-constexpr auto ABOUT_TEXT_Y_POSITION = 380.0f;
-constexpr auto SETTINGS_TEXT_Y_POSITION = 460.0f;
-constexpr auto EXIT_TEXT_Y_POSITION = 540.0f;
-constexpr auto TEST_TEXT_Y_POSITION = 620.0f;
+constexpr auto LADDLE_TEXT_CONTENT = "LADDLE";
+constexpr auto LADDLE_TEXT_SIZE = 120;
+constexpr auto LADDLE_TEXT_LETTER_SPACING = 2.0f;
+
+constexpr auto MENU_OPTIONS_TEXT_SIZE = 60;
+// higher number = text goes left
+constexpr auto MENU_OPTIONS_INDENT = 4.0f;
+constexpr auto MENU_OPTIONS_FIRST_OPTION_Y_POSITION = 300.0f;
+constexpr auto MENU_OPTIONS_VERTICAL_SPACING = 80.0f;
+
+constexpr auto PLAY_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 0;
+constexpr auto ABOUT_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 1;
+constexpr auto SETTINGS_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 2;
+constexpr auto EXIT_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 3;
+constexpr auto TEST_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 4;
+
+constexpr auto SELECTOR_TEXT_SIZE = 60;
+constexpr auto SELECTOR_HORIZONTAL_SPACING = 2.0f;
 
 bool MainMenuScreen::handleInput(const sf::Event& event)
 {
@@ -35,7 +48,6 @@ bool MainMenuScreen::handleInput(const sf::Event& event)
 	}
 
 	ResourceManager::clearActions();
-
 	return captured;
 }
 
@@ -44,43 +56,58 @@ void MainMenuScreen::update()
 
 }
 
-void MainMenuScreen::draw(sf::RenderTarget& window)
+void MainMenuScreen::p_drawTitle(sf::RenderTarget& window, const sf::Font& font)
 {
-	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
-
-	sf::Text laddleText(font, "LADDLE", 120);
+	sf::Text laddleText(font, LADDLE_TEXT_CONTENT, LADDLE_TEXT_SIZE);
 	{
-		laddleText.setLetterSpacing(2.0f);
+		laddleText.setLetterSpacing(LADDLE_TEXT_LETTER_SPACING);
 		auto lbounds = laddleText.getLocalBounds();
 		laddleText.setOrigin(lbounds.position + lbounds.size / 2.0f);
 		laddleText.setPosition({window.getSize().x / 2.0f, LADDLE_TEXT_Y_POSITION});
 	}
-	
-	sf::Text playText(font, "PLAY", 60);
-	sf::Text aboutText(font, "ABOUT", 60);
-	sf::Text settingsText(font, "SETTINGS", 60);
-	sf::Text exitText(font, "EXIT", 60);
-	sf::Text testText(font, "TEST", 60);
-	{
-		playText.setPosition({window.getSize().x / 4.0f, PLAY_TEXT_Y_POSITION});
-		aboutText.setPosition({window.getSize().x / 4.0f, ABOUT_TEXT_Y_POSITION});
-		settingsText.setPosition({window.getSize().x / 4.0f, SETTINGS_TEXT_Y_POSITION});
-		exitText.setPosition({window.getSize().x / 4.0f, EXIT_TEXT_Y_POSITION});
-		testText.setPosition({window.getSize().x / 4.0f, TEST_TEXT_Y_POSITION});
-	}
-
-	sf::Text selectorText(font, ">", 60);
-	{
-		auto selectorYPosition = p_selector * 80.0f + 300.0f;
-		auto lbounds = selectorText.getLocalBounds();
-		selectorText.setPosition({window.getSize().x / 4.0f - 2 * lbounds.size.x, selectorYPosition});
-	}
 
 	window.draw(laddleText);
+}
+
+void MainMenuScreen::p_drawMenuOptions(sf::RenderTarget& window, const sf::Font& font)
+{
+	sf::Text playText(font, "PLAY", MENU_OPTIONS_TEXT_SIZE);
+	sf::Text aboutText(font, "ABOUT", MENU_OPTIONS_TEXT_SIZE);
+	sf::Text settingsText(font, "SETTINGS", MENU_OPTIONS_TEXT_SIZE);
+	sf::Text exitText(font, "EXIT", MENU_OPTIONS_TEXT_SIZE);
+	sf::Text testText(font, "TEST", MENU_OPTIONS_TEXT_SIZE);
+	{
+		playText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, PLAY_TEXT_Y_POSITION});
+		aboutText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, ABOUT_TEXT_Y_POSITION});
+		settingsText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, SETTINGS_TEXT_Y_POSITION});
+		exitText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, EXIT_TEXT_Y_POSITION});
+		testText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, TEST_TEXT_Y_POSITION});
+	}
+
 	window.draw(playText);
 	window.draw(aboutText);
 	window.draw(settingsText);
 	window.draw(exitText);
 	window.draw(testText);
+}
+
+void MainMenuScreen::p_drawSelector(sf::RenderTarget& window, const sf::Font& font)
+{
+	sf::Text selectorText(font, ">", SELECTOR_TEXT_SIZE);
+	{
+		auto selectorYPosition = p_selector * MENU_OPTIONS_VERTICAL_SPACING + MENU_OPTIONS_FIRST_OPTION_Y_POSITION;
+		auto lbounds = selectorText.getLocalBounds();
+		selectorText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT - SELECTOR_HORIZONTAL_SPACING * lbounds.size.x, selectorYPosition});
+	}
+
 	window.draw(selectorText);
+}
+
+void MainMenuScreen::draw(sf::RenderTarget& window)
+{
+	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
+
+	p_drawTitle(window, font);
+	p_drawMenuOptions(window, font);
+	p_drawSelector(window, font);
 }
