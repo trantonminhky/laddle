@@ -14,7 +14,6 @@ enum class GameState
 	PLAY,
 	ABOUT,
 	OPTIONS,
-	TEST,
 	NOT_IMPLEMENTED
 };
 

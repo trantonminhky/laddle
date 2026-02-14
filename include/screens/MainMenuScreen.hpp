@@ -14,13 +14,12 @@ public:
 
 private:
 	int p_selector = 0;
-	static constexpr auto P_MAIN_MENU_MAX_OPTIONS = 5;
+	static constexpr auto P_MAIN_MENU_MAX_OPTIONS = 4;
 	static constexpr GameState p_nextState[P_MAIN_MENU_MAX_OPTIONS] = {
 		GameState::PLAY,
 		GameState::ABOUT,
 		GameState::OPTIONS,
-		GameState::NONE,
-		GameState::TEST
+		GameState::NONE
 	};
 
 	void p_drawTitle(sf::RenderTarget& window, const sf::Font& font);

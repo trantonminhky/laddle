@@ -22,16 +22,9 @@ void ScreenManager::advance(GameState nextState)
 			break;
 		}
 
-		case GameState::TEST:
-		{
-			p_stateStack.push(GameState::TEST);
-			p_screenStack.push(std::make_unique<TestScreen>());
-			break;
-		}
-
 		case GameState::PLAY:
 		{
-			p_stateStack.push(GameState::TEST);
+			p_stateStack.push(GameState::PLAY);
 			p_screenStack.push(std::make_unique<PlayScreen>());
 			break;
 		}

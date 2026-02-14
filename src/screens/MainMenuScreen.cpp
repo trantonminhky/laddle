@@ -21,7 +21,6 @@ constexpr auto PLAY_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MEN
 constexpr auto ABOUT_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 1;
 constexpr auto SETTINGS_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 2;
 constexpr auto EXIT_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 3;
-constexpr auto TEST_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 4;
 
 constexpr auto SELECTOR_TEXT_SIZE = 60;
 constexpr auto SELECTOR_HORIZONTAL_SPACING = 2.0f;
@@ -75,20 +74,17 @@ void MainMenuScreen::p_drawMenuOptions(sf::RenderTarget& window, const sf::Font&
 	sf::Text aboutText(font, "ABOUT", MENU_OPTIONS_TEXT_SIZE);
 	sf::Text settingsText(font, "SETTINGS", MENU_OPTIONS_TEXT_SIZE);
 	sf::Text exitText(font, "EXIT", MENU_OPTIONS_TEXT_SIZE);
-	sf::Text testText(font, "TEST", MENU_OPTIONS_TEXT_SIZE);
 	{
 		playText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, PLAY_TEXT_Y_POSITION});
 		aboutText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, ABOUT_TEXT_Y_POSITION});
 		settingsText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, SETTINGS_TEXT_Y_POSITION});
 		exitText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, EXIT_TEXT_Y_POSITION});
-		testText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, TEST_TEXT_Y_POSITION});
 	}
 
 	window.draw(playText);
 	window.draw(aboutText);
 	window.draw(settingsText);
 	window.draw(exitText);
-	window.draw(testText);
 }
 
 void MainMenuScreen::p_drawSelector(sf::RenderTarget& window, const sf::Font& font)

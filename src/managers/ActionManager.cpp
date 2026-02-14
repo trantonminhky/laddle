@@ -43,25 +43,6 @@ void ActionManager::checkActions(const sf::Event& event)
 
 	/*
 		########################################
-		################# TEST #################
-		########################################
-	*/
-	if (keyPressedEvent)
-	{
-		auto scancode = keyPressedEvent->scancode;
-		p_actionStates[GameAction::TEST_EXIT] = (
-			scancode == sf::Keyboard::Scan::Escape
-		);
-		p_actionStates[GameAction::TEST_BACKSPACE] = (
-			scancode == sf::Keyboard::Scan::Backspace
-		);
-		p_actionStates[GameAction::TEST_ENTER] = (
-			scancode == sf::Keyboard::Scan::Enter
-		);
-	}
-
-	/*
-		########################################
 		################# PLAY #################
 		########################################
 	*/
