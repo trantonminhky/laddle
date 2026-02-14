@@ -11,4 +11,7 @@ public:
 	void draw(sf::RenderTarget& window) override;
 
 	~NotImplementedScreen() = default;
+
+private:
+	void p_drawText(sf::RenderTarget& window, const sf::Font& font);
 };

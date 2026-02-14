@@ -15,7 +15,6 @@ bool NotImplementedScreen::handleInput(const sf::Event& event)
 	}
 
 	ResourceManager::clearActions();
-
 	return captured;
 }
 
@@ -24,10 +23,15 @@ void NotImplementedScreen::update()
 
 }
 
-void NotImplementedScreen::draw(sf::RenderTarget& window)
+void p_drawText(sf::RenderTarget& window, const sf::Font& font)
 {
-	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	sf::Text notImplementedText(font, "not implemented :(", 50);
 
 	window.draw(notImplementedText);
+}
+
+void NotImplementedScreen::draw(sf::RenderTarget& window)
+{
+	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
+	p_drawText(window, font);
 }
