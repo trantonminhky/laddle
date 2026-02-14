@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <app/solve.hpp>
+#include "app/solve.hpp"
 
 #include "screens/PlayScreen.hpp"
 
@@ -15,48 +15,118 @@
 
 #include "algo/binarySearch.hpp"
 
-PlayScreen::PlayScreen() : BaseScreen()
-{
-	Row initialRow;
-	p_rowStack.push_back(initialRow);
+constexpr auto MESSAGE_TEXT_FONT_SIZE = 50;
 
+constexpr auto ROW_X_POSITION = 350.0f;
+constexpr auto ROW_CENTER_Y_POSITION = 350.0f;
+constexpr auto ROW_VERTICAL_SPACING = 90.0f;
+
+constexpr auto ELLIPSIS_TEXT_FONT_SIZE = 50;
+constexpr auto ELLIPSIS_TEXT_X_POSITION = 800.0f;
+constexpr auto ELLIPSIS_TEXT_UP_Y_POSITION = 100.0f;
+constexpr auto ELLIPSIS_TEXT_DOWN_Y_POSITION = 700.0f;
+
+constexpr auto MAXIMUM_ROW_COUNT_PER_SIDE = 3;
+
+void PlayScreen::p_generateSourceAndAnswer()
+{
 	p_answer = vecrand(ResourceManager::concordance);
 	do
 	{
 		p_source = vecrand(ResourceManager::concordance);
-	}
-	while (solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer).empty());
+	} while (solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer).empty());
+}
 
-	for (const char& c : p_source)
+void PlayScreen::p_initFirstGuess()
+{
+	for (const char &c : p_source)
 	{
 		p_rowStack.back().pushLetter(c);
 	}
 	p_rowStack.back().check(p_answer);
+}
+
+void PlayScreen::p_pushRow()
+{
+	Row newRow;
+
+	p_rowStack.push_back(newRow);
+	p_iterator++;
+}
+
+void PlayScreen::p_popRow()
+{
+	p_rowStack.pop_back();
+	p_iterator--;
+
+	p_rowStack.back().resetState();
+}
+
+void PlayScreen::p_drawMessage(sf::RenderTarget& window, const sf::Font& font)
+{
+	sf::Text messageText(font, p_message, MESSAGE_TEXT_FONT_SIZE);
+	window.draw(messageText);
+}
+
+void PlayScreen::p_drawRows(sf::RenderTarget& window, int start, int end)
+{
+	int stackSize = p_rowStack.size();
+	for (int i = start; i < end; i++)
+	{
+		if (i >= 0 && i < stackSize)
+		{
+			p_rowStack[i].setPosition(ROW_X_POSITION, ROW_CENTER_Y_POSITION + ROW_VERTICAL_SPACING * (i - p_iterator));
+			window.draw(p_rowStack[i]);
+		}
+	}
+}
+
+void PlayScreen::p_drawEllipses(sf::RenderTarget& window, const sf::Font& font, int start, int end)
+{
+	int stackSize = p_rowStack.size();
+	if (start > 0)
+	{
+		sf::Text ellipsisUpText(font, "...", ELLIPSIS_TEXT_FONT_SIZE);
+		ellipsisUpText.setPosition({ELLIPSIS_TEXT_X_POSITION, ELLIPSIS_TEXT_UP_Y_POSITION});
+		window.draw(ellipsisUpText);
+	}
+
+	if (end < stackSize - 1)
+	{
+		sf::Text ellipsisDownText(font, "...", ELLIPSIS_TEXT_FONT_SIZE);
+		ellipsisDownText.setPosition({ELLIPSIS_TEXT_X_POSITION, ELLIPSIS_TEXT_DOWN_Y_POSITION});
+		window.draw(ellipsisDownText);
+	}
+}
+
+PlayScreen::PlayScreen() : BaseScreen()
+{
+	p_pushRow();
+
+	p_generateSourceAndAnswer();
+	p_initFirstGuess();
+	p_pushRow();
 
 	auto solvedPath = solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer);
-
-	for (const auto& e : solvedPath)
+	for (const auto &e : solvedPath)
 	{
 		std::cout << ResourceManager::lexicon[e] << ' ';
 	}
 	std::cout << std::endl;
 
-	Row newRow;
-
-	p_rowStack.push_back(newRow);
-	p_iterator++;
-
 	p_message = "go on...";
 }
 
-bool PlayScreen::handleInput(const sf::Event& event)
+bool PlayScreen::handleInput(const sf::Event &event)
 {
+	// the first frame must be ignored to prevent input leaking from main menu
 	if (p_ignoreFirstFrame)
 	{
 		p_ignoreFirstFrame = false;
 		return false;
 	}
-	Row& rowStackTop = p_rowStack.back();
+
+	Row &rowStackTop = p_rowStack.back();
 	bool captured = false;
 	ResourceManager::checkActions(event);
 
@@ -69,18 +139,8 @@ bool PlayScreen::handleInput(const sf::Event& event)
 	{
 		if (!p_detachedHead)
 		{
-			if (rowStackTop.isEmpty() && p_rowStack.size() > 2)
-			{
-				p_rowStack.pop_back();
-				p_iterator--;
-				// do not use rowStackTop here, the stack was popped
-	
-				p_rowStack.back().resetState();
-			}
-			else
-			{
-				rowStackTop.popLetter();
-			}
+			if (rowStackTop.isEmpty() && p_rowStack.size() > 2) p_popRow();
+			else rowStackTop.popLetter();
 		}
 		captured = true;
 	}
@@ -113,12 +173,7 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		else
 		{
 			rowStackTop.check(p_answer);
-
-			Row newRow;
-
-			p_rowStack.push_back(newRow);
-			p_iterator++;
-
+			p_pushRow();
 			p_message = "go on...";
 		}
 		captured = true;
@@ -136,12 +191,12 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		int stackSize = p_rowStack.size();
 		if (p_iterator < stackSize - 1)
 		{
-			if (p_iterator == stackSize - 2) p_detachedHead = false;
+			if (p_iterator == stackSize - 2)
+				p_detachedHead = false;
 			p_iterator++;
 		}
 	}
 
-	
 	if (event.is<sf::Event::TextEntered>() && !p_detachedHead)
 	{
 		auto letter = event.getIf<sf::Event::TextEntered>()->unicode;
@@ -154,9 +209,8 @@ bool PlayScreen::handleInput(const sf::Event& event)
 		}
 		captured = true;
 	}
-	
-	ResourceManager::clearActions();
 
+	ResourceManager::clearActions();
 	return captured;
 }
 
@@ -167,35 +221,12 @@ void PlayScreen::update()
 
 void PlayScreen::draw(sf::RenderTarget& window)
 {
-	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
-	sf::Text messageText(font, p_message, 50);
-
-	int stackSize = p_rowStack.size();
-	auto rowDrawingStartIndex = p_iterator - 3;
-	auto rowDrawingEndIndex = p_iterator + 4;
-
-	if (rowDrawingStartIndex > 0)
-	{
-		sf::Text ellipsisUpText(font, "...", 50);
-		ellipsisUpText.setPosition({800.0f, 100.0f});
-		window.draw(ellipsisUpText);
-	}
+	const sf::Font &font = ResourceManager::getFont("VCR_OSD_MONO");
 	
-	if (rowDrawingEndIndex < stackSize - 1)
-	{
-		sf::Text ellipsisDownText(font, "...", 50);
-		ellipsisDownText.setPosition({800.0f, 700.0f});
-		window.draw(ellipsisDownText);
-	}
-
-
-	for (int i = rowDrawingStartIndex; i < rowDrawingEndIndex; i++)
-	{
-		if (i >= 0 && i < stackSize)
-		{
-			p_rowStack[i].setPosition(350.0f, 350.0f + 90 * (i - p_iterator));
-			window.draw(p_rowStack[i]);
-		}
-	}
-	window.draw(messageText);
+	auto rowDrawingStartIndex = p_iterator - MAXIMUM_ROW_COUNT_PER_SIDE;
+	auto rowDrawingEndIndex = p_iterator + MAXIMUM_ROW_COUNT_PER_SIDE + 1;
+	
+	p_drawMessage(window, font);
+	p_drawEllipses(window, font, rowDrawingStartIndex, rowDrawingEndIndex);
+	p_drawRows(window, rowDrawingStartIndex, rowDrawingEndIndex);
 }

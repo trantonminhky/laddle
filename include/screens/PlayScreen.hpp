@@ -20,7 +20,7 @@ public:
 
 private:
 	std::vector<Row> p_rowStack;
-	int p_iterator = 0;
+	int p_iterator = -1;
 	bool p_detachedHead = false;
 
 	std::string p_source;
@@ -28,4 +28,14 @@ private:
 	std::string p_message = "Go on...";
 
 	bool p_ignoreFirstFrame = true;
+
+	void p_generateSourceAndAnswer();
+	void p_initFirstGuess();
+
+	void p_pushRow();
+	void p_popRow();
+
+	void p_drawMessage(sf::RenderTarget& window, const sf::Font& font);
+	void p_drawRows(sf::RenderTarget& window, int start, int end);
+	void p_drawEllipses(sf::RenderTarget& window, const sf::Font& font, int start, int end);
 };

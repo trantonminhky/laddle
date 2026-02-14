@@ -23,7 +23,7 @@ void NotImplementedScreen::update()
 
 }
 
-void p_drawText(sf::RenderTarget& window, const sf::Font& font)
+void NotImplementedScreen::p_drawText(sf::RenderTarget& window, const sf::Font& font)
 {
 	sf::Text notImplementedText(font, "not implemented :(", 50);
 
