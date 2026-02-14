@@ -35,6 +35,12 @@ PlayScreen::PlayScreen() : BaseScreen()
 
 	auto solvedPath = solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer);
 
+	for (const auto& e : solvedPath)
+	{
+		std::cout << ResourceManager::lexicon[e] << ' ';
+	}
+	std::cout << std::endl;
+
 	Row newRow;
 
 	p_rowStack.push_back(newRow);
