@@ -15,12 +15,12 @@ public:
 
 	void init();
 
-	static void advance(GameState nextState);
+	static void advance(const GameState& nextState);
 	static void retreat();
 
 	bool handleInput(const sf::Event& event);
 	void update();
-	void draw(sf::RenderTarget& window);
+	void draw(sf::RenderTarget& window) const;
 
 	GameState getCurrentState() const;
 

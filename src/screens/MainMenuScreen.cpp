@@ -55,7 +55,7 @@ void MainMenuScreen::update()
 
 }
 
-void MainMenuScreen::p_drawTitle(sf::RenderTarget& window, const sf::Font& font)
+void MainMenuScreen::p_drawTitle(sf::RenderTarget& window, const sf::Font& font) const
 {
 	sf::Text laddleText(font, LADDLE_TEXT_CONTENT, LADDLE_TEXT_FONT_SIZE);
 	{
@@ -68,7 +68,7 @@ void MainMenuScreen::p_drawTitle(sf::RenderTarget& window, const sf::Font& font)
 	window.draw(laddleText);
 }
 
-void MainMenuScreen::p_drawMenuOptions(sf::RenderTarget& window, const sf::Font& font)
+void MainMenuScreen::p_drawMenuOptions(sf::RenderTarget& window, const sf::Font& font) const
 {
 	sf::Text playText(font, "PLAY", MENU_OPTIONS_TEXT_SIZE);
 	sf::Text aboutText(font, "ABOUT", MENU_OPTIONS_TEXT_SIZE);
@@ -87,7 +87,7 @@ void MainMenuScreen::p_drawMenuOptions(sf::RenderTarget& window, const sf::Font&
 	window.draw(exitText);
 }
 
-void MainMenuScreen::p_drawSelector(sf::RenderTarget& window, const sf::Font& font)
+void MainMenuScreen::p_drawSelector(sf::RenderTarget& window, const sf::Font& font) const
 {
 	sf::Text selectorText(font, ">", SELECTOR_TEXT_FONT_SIZE);
 	{
@@ -99,7 +99,7 @@ void MainMenuScreen::p_drawSelector(sf::RenderTarget& window, const sf::Font& fo
 	window.draw(selectorText);
 }
 
-void MainMenuScreen::draw(sf::RenderTarget& window)
+void MainMenuScreen::draw(sf::RenderTarget& window) const
 {
 	const sf::Font& font = ResourceManager::getFont(Font::VCR_OSD_MONO);
 

@@ -14,7 +14,7 @@ public:
 
 	bool handleInput(const sf::Event& event) override;
 	void update() override;
-	void draw(sf::RenderTarget& window) override;
+	void draw(sf::RenderTarget& window) const override;
 
 	~PlayScreen() = default;
 
@@ -35,7 +35,7 @@ private:
 	void p_pushRow();
 	void p_popRow();
 
-	void p_drawMessage(sf::RenderTarget& window, const sf::Font& font);
-	void p_drawRows(sf::RenderTarget& window, int start, int end);
-	void p_drawEllipses(sf::RenderTarget& window, const sf::Font& font, int start, int end);
+	void p_drawMessage(sf::RenderTarget& window, const sf::Font& font) const;
+	void p_drawRows(sf::RenderTarget& window, int start, int end) const;
+	void p_drawEllipses(sf::RenderTarget& window, const sf::Font& font, int start, int end) const;
 };

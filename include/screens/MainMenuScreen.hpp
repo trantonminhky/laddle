@@ -10,7 +10,7 @@ public:
 
 	bool handleInput(const sf::Event& event) override;
 	void update() override;
-	void draw(sf::RenderTarget& window) override;
+	void draw(sf::RenderTarget& window) const override;
 
 private:
 	int p_selector = 0;
@@ -22,7 +22,7 @@ private:
 		GameState::NONE
 	};
 
-	void p_drawTitle(sf::RenderTarget& window, const sf::Font& font);
-	void p_drawMenuOptions(sf::RenderTarget& window, const sf::Font& font);
-	void p_drawSelector(sf::RenderTarget& window, const sf::Font& font);
+	void p_drawTitle(sf::RenderTarget& window, const sf::Font& font) const;
+	void p_drawMenuOptions(sf::RenderTarget& window, const sf::Font& font) const;
+	void p_drawSelector(sf::RenderTarget& window, const sf::Font& font) const;
 };

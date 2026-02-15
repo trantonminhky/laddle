@@ -11,7 +11,7 @@ void ScreenManager::init()
 	p_screenStack.push(std::make_unique<MainMenuScreen>());
 }
 
-void ScreenManager::advance(GameState nextState)
+void ScreenManager::advance(const GameState& nextState)
 {
 	switch (nextState)
 	{
@@ -55,7 +55,7 @@ void ScreenManager::update()
 	p_screenStack.top()->update();
 }
 
-void ScreenManager::draw(sf::RenderTarget& window)
+void ScreenManager::draw(sf::RenderTarget& window) const
 {
 	swag_assert(!p_screenStack.empty());
 	p_screenStack.top()->draw(window);

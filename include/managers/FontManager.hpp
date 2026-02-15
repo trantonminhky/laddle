@@ -13,8 +13,9 @@ public:
 	explicit FontManager() = default;
 	~FontManager() = default;
 	
-	void init();
 	void load(const Font& key, const std::string& path);
+	void init();
+	
 	const sf::Font& get(const Font& font) const;
 
 private:

@@ -23,14 +23,14 @@ void NotImplementedScreen::update()
 
 }
 
-void NotImplementedScreen::p_drawText(sf::RenderTarget& window, const sf::Font& font)
+void NotImplementedScreen::p_drawText(sf::RenderTarget& window, const sf::Font& font) const
 {
 	sf::Text notImplementedText(font, "not implemented :(", 50);
 
 	window.draw(notImplementedText);
 }
 
-void NotImplementedScreen::draw(sf::RenderTarget& window)
+void NotImplementedScreen::draw(sf::RenderTarget& window) const
 {
 	const sf::Font& font = ResourceManager::getFont(Font::VCR_OSD_MONO);
 	p_drawText(window, font);

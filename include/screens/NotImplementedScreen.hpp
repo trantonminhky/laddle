@@ -8,10 +8,10 @@ public:
 
 	bool handleInput(const sf::Event& event) override;
 	void update() override;
-	void draw(sf::RenderTarget& window) override;
+	void draw(sf::RenderTarget& window) const override;
 
 	~NotImplementedScreen() = default;
 
 private:
-	void p_drawText(sf::RenderTarget& window, const sf::Font& font);
+	void p_drawText(sf::RenderTarget& window, const sf::Font& font) const;
 };

@@ -62,13 +62,13 @@ void PlayScreen::p_popRow()
 	p_rowStack.back().resetState();
 }
 
-void PlayScreen::p_drawMessage(sf::RenderTarget& window, const sf::Font& font)
+void PlayScreen::p_drawMessage(sf::RenderTarget& window, const sf::Font& font) const
 {
 	sf::Text messageText(font, p_message, MESSAGE_TEXT_FONT_SIZE);
 	window.draw(messageText);
 }
 
-void PlayScreen::p_drawRows(sf::RenderTarget& window, int start, int end)
+void PlayScreen::p_drawRows(sf::RenderTarget& window, int start, int end) const
 {
 	int stackSize = p_rowStack.size();
 	for (int i = start; i < end; i++)
@@ -80,7 +80,7 @@ void PlayScreen::p_drawRows(sf::RenderTarget& window, int start, int end)
 	}
 }
 
-void PlayScreen::p_drawEllipses(sf::RenderTarget& window, const sf::Font& font, int start, int end)
+void PlayScreen::p_drawEllipses(sf::RenderTarget& window, const sf::Font& font, int start, int end) const
 {
 	int stackSize = p_rowStack.size();
 	if (start > 0)
@@ -233,7 +233,7 @@ void PlayScreen::update()
 	}
 }
 
-void PlayScreen::draw(sf::RenderTarget& window)
+void PlayScreen::draw(sf::RenderTarget& window) const
 {
 	const sf::Font &font = ResourceManager::getFont(Font::VCR_OSD_MONO);
 	
