@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "clocks/ShakeClock.hpp"
 
-constexpr int WORD_LENGTH = 5;
+constexpr auto WORD_LENGTH = 5;
 
-class Row : public sf::Drawable
+class Row : public sf::Drawable, public sf::Transformable
 {
 public:
 	// default constructor
@@ -15,11 +15,8 @@ public:
 	bool isFull() const;
 	bool isEmpty() const;
 
-	sf::Vector2f getPosition() const;
 	sf::Vector2f getBasePosition() const;
 	sf::Vector2f getAnimatedPosition() const;
-	void setPosition(const float& x, const float& y);
-	void setPosition(const sf::Vector2f& vecf);
 
 	Tile getTileAtIndex(const int& i) const;
 
@@ -43,5 +40,8 @@ private:
 
 	sf::Vector2f p_position = {0.0f, 0.0f};
 
-	ShakeClock shakeClock;
+	ShakeClock p_shakeClock;
+
+	float p_getShakeDisplacement() const;
+	void p_drawTileRect(sf::RenderTarget& target, sf::RenderStates states [[maybe_unused]]) const;
 };

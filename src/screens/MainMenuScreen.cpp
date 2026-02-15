@@ -8,7 +8,7 @@
 
 constexpr auto LADDLE_TEXT_Y_POSITION = 100.0f;
 constexpr auto LADDLE_TEXT_CONTENT = "LADDLE";
-constexpr auto LADDLE_TEXT_SIZE = 120;
+constexpr auto LADDLE_TEXT_FONT_SIZE = 120;
 constexpr auto LADDLE_TEXT_LETTER_SPACING = 2.0f;
 
 constexpr auto MENU_OPTIONS_TEXT_SIZE = 60;
@@ -22,7 +22,7 @@ constexpr auto ABOUT_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + ME
 constexpr auto SETTINGS_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 2;
 constexpr auto EXIT_TEXT_Y_POSITION = MENU_OPTIONS_FIRST_OPTION_Y_POSITION + MENU_OPTIONS_VERTICAL_SPACING * 3;
 
-constexpr auto SELECTOR_TEXT_SIZE = 60;
+constexpr auto SELECTOR_TEXT_FONT_SIZE = 60;
 constexpr auto SELECTOR_HORIZONTAL_SPACING = 2.0f;
 
 bool MainMenuScreen::handleInput(const sf::Event& event)
@@ -57,7 +57,7 @@ void MainMenuScreen::update()
 
 void MainMenuScreen::p_drawTitle(sf::RenderTarget& window, const sf::Font& font)
 {
-	sf::Text laddleText(font, LADDLE_TEXT_CONTENT, LADDLE_TEXT_SIZE);
+	sf::Text laddleText(font, LADDLE_TEXT_CONTENT, LADDLE_TEXT_FONT_SIZE);
 	{
 		laddleText.setLetterSpacing(LADDLE_TEXT_LETTER_SPACING);
 		auto lbounds = laddleText.getLocalBounds();
@@ -89,7 +89,7 @@ void MainMenuScreen::p_drawMenuOptions(sf::RenderTarget& window, const sf::Font&
 
 void MainMenuScreen::p_drawSelector(sf::RenderTarget& window, const sf::Font& font)
 {
-	sf::Text selectorText(font, ">", SELECTOR_TEXT_SIZE);
+	sf::Text selectorText(font, ">", SELECTOR_TEXT_FONT_SIZE);
 	{
 		auto selectorYPosition = p_selector * MENU_OPTIONS_VERTICAL_SPACING + MENU_OPTIONS_FIRST_OPTION_Y_POSITION;
 		auto lbounds = selectorText.getLocalBounds();

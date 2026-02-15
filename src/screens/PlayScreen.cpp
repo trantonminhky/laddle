@@ -75,7 +75,6 @@ void PlayScreen::p_drawRows(sf::RenderTarget& window, int start, int end)
 	{
 		if (i >= 0 && i < stackSize)
 		{
-			p_rowStack[i].setPosition(ROW_X_POSITION, ROW_CENTER_Y_POSITION + ROW_VERTICAL_SPACING * (i - p_iterator));
 			window.draw(p_rowStack[i]);
 		}
 	}
@@ -216,7 +215,22 @@ bool PlayScreen::handleInput(const sf::Event &event)
 
 void PlayScreen::update()
 {
-	p_rowStack.back().update();
+	auto start = p_iterator - MAXIMUM_ROW_COUNT_PER_SIDE;
+	auto end = p_iterator + MAXIMUM_ROW_COUNT_PER_SIDE + 1;
+	int stackSize = p_rowStack.size();
+
+	for (int i = start; i < end; i++)
+	{
+		if (i >= 0 && i < stackSize)
+		{
+			p_rowStack[i].setPosition({ROW_X_POSITION, ROW_CENTER_Y_POSITION + ROW_VERTICAL_SPACING * (i - p_iterator)});
+		}
+	}
+	
+	for (Row& row : p_rowStack)
+	{
+		row.update();
+	}
 }
 
 void PlayScreen::draw(sf::RenderTarget& window)
@@ -226,7 +240,7 @@ void PlayScreen::draw(sf::RenderTarget& window)
 	auto rowDrawingStartIndex = p_iterator - MAXIMUM_ROW_COUNT_PER_SIDE;
 	auto rowDrawingEndIndex = p_iterator + MAXIMUM_ROW_COUNT_PER_SIDE + 1;
 	
-	p_drawMessage(window, font);
-	p_drawEllipses(window, font, rowDrawingStartIndex, rowDrawingEndIndex);
 	p_drawRows(window, rowDrawingStartIndex, rowDrawingEndIndex);
+	p_drawEllipses(window, font, rowDrawingStartIndex, rowDrawingEndIndex);
+	p_drawMessage(window, font);
 }
