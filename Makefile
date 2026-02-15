@@ -18,7 +18,7 @@ TARGET := laddle
 
 # Runtime search path: lib/ next to the executable
 LDFLAGS := -Wl,-rpath,'$$ORIGIN/lib'
-LDLIBS  := -lsfml-graphics -lsfml-window -lsfml-system
+LDLIBS  := -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
 all: $(TARGET)
 
