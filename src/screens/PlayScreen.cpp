@@ -156,21 +156,25 @@ bool PlayScreen::handleInput(const sf::Event &event)
 		else if (!rowStackTop.isFull())
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "kid that ain't a 5 letter word";
 		}
 		else if (hammingDistance(rowStackTop.getWord(), (*(p_rowStack.cend() - 2)).getWord()) != 1)
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "kid that will not make a ladder";
 		}
 		else if (!binarySearch(ResourceManager::lexicon.cbegin(), ResourceManager::lexicon.cend(), rowStackTop.getWord()))
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "kid that ain't an english word";
 		}
 		else if (solve(ResourceManager::adjList, ResourceManager::lexicon, rowStackTop.getWord(), p_answer).empty())
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "you are COOKED if you continue with this word";
 		}
 		else
