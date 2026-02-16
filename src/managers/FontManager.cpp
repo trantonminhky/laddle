@@ -18,7 +18,7 @@ void FontManager::load(const Font& key, const std::string& path)
 
 void FontManager::init()
 {
-	for (auto entry : FONT_TABLE)
+	for (const auto& entry : FONT_TABLE)
 	{
 		load(entry.key, entry.path);
 	}

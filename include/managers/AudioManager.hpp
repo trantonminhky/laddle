@@ -9,7 +9,7 @@ enum class Music
 
 enum class Sound
 {
-
+	INPUT_LETTER
 };
 
 class AudioManager
@@ -18,12 +18,14 @@ public:
 	explicit AudioManager() = default;
 	~AudioManager() = default;
 
-	void load(const Sound& key, const std::string& path);
+	void loadSoundBuffer(const Sound& key, const std::string& path);
 	void init();
 
-	const sf::Sound& get(const Sound& sound) const;
+	const sf::SoundBuffer& getSoundBuffer(const Sound& sound) const;
+	void playSoundInputLetter() const;
+
 
 private:
-	std::unordered_map<Sound, sf::Sound> p_sounds;
+	std::unordered_map<Sound, sf::SoundBuffer> p_soundBuffers;
 	sf::Music music;
 };
