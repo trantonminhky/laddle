@@ -139,7 +139,11 @@ bool PlayScreen::handleInput(const sf::Event &event)
 		if (!p_detachedHead)
 		{
 			if (rowStackTop.isEmpty() && p_rowStack.size() > 2) p_popRow();
-			else rowStackTop.popLetter();
+			else
+			{
+				rowStackTop.popLetter();
+				ResourceManager::playSoundBackspaceLetter();
+			}
 		}
 		captured = true;
 	}
@@ -152,27 +156,32 @@ bool PlayScreen::handleInput(const sf::Event &event)
 		else if (!rowStackTop.isFull())
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "kid that ain't a 5 letter word";
 		}
 		else if (hammingDistance(rowStackTop.getWord(), (*(p_rowStack.cend() - 2)).getWord()) != 1)
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "kid that will not make a ladder";
 		}
 		else if (!binarySearch(ResourceManager::lexicon.cbegin(), ResourceManager::lexicon.cend(), rowStackTop.getWord()))
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "kid that ain't an english word";
 		}
 		else if (solve(ResourceManager::adjList, ResourceManager::lexicon, rowStackTop.getWord(), p_answer).empty())
 		{
 			rowStackTop.shake();
+			ResourceManager::playSoundShakeRow();
 			p_message = "you are COOKED if you continue with this word";
 		}
 		else
 		{
 			rowStackTop.check(p_answer);
 			p_pushRow();
+			ResourceManager::playSoundInputRow();
 			p_message = "go on...";
 		}
 		captured = true;
@@ -183,6 +192,7 @@ bool PlayScreen::handleInput(const sf::Event &event)
 		{
 			p_iterator--;
 			p_detachedHead = true;
+			ResourceManager::playSoundMoveRow();
 		}
 	}
 	else if (ResourceManager::hasAction(GameAction::PLAY_MOVE_NEXT_ROW))
@@ -193,6 +203,7 @@ bool PlayScreen::handleInput(const sf::Event &event)
 			if (p_iterator == stackSize - 2)
 				p_detachedHead = false;
 			p_iterator++;
+			ResourceManager::playSoundMoveRow();
 		}
 	}
 
@@ -204,6 +215,7 @@ bool PlayScreen::handleInput(const sf::Event &event)
 			if (!rowStackTop.isFull())
 			{
 				rowStackTop.pushLetter(letter);
+				ResourceManager::playSoundInputLetter();
 			}
 		}
 		captured = true;

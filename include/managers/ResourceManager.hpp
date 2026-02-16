@@ -4,6 +4,7 @@
 
 #include "managers/FontManager.hpp"
 #include "managers/ActionManager.hpp"
+#include "managers/AudioManager.hpp"
 
 // ////////////////////////////////////
 // GAME STATES
@@ -21,23 +22,28 @@ namespace ResourceManager
 {
 	extern std::unique_ptr<FontManager> fontManagerPtr;
 	extern std::unique_ptr<ActionManager> actionManagerPtr;
+	extern std::unique_ptr<AudioManager> audioManagerPtr;
 	extern std::vector<std::string> lexicon;
 	extern std::vector<std::string> concordance;
 	extern std::vector<AdjacencyListEntry> adjList;
 	void init();
 
-	template <typename ...Ts>
-	void loadFont(Ts&&... yuke)
-	{
-		fontManagerPtr->load(std::forward<Ts>(yuke)...);
-	}
 
+
+	// #######################################
+	// ############ FONT MANAGER #############
+	// #######################################
 	template <typename ...Ts>
 	const sf::Font& getFont(Ts&&... yuke)
 	{
 		return fontManagerPtr->get(std::forward<Ts>(yuke)...);
 	}
 
+
+
+	// #######################################
+	// ########### ACTION MANAGER ############
+	// #######################################
 	template <typename ...Ts>
 	void checkActions(Ts&&... yuke)
 	{
@@ -54,5 +60,59 @@ namespace ResourceManager
 	void clearActions(Ts&&... yuke)
 	{
 		actionManagerPtr->clearActions(std::forward<Ts>(yuke)...);
+	}
+
+
+
+	// #######################################
+	// ############ AUDIO MANAGER ############
+	// #######################################
+	
+	template <typename ...Ts>
+	sf::Sound& getSoundBuffer(Ts&&... yuke)
+	{
+		return audioManagerPtr->getSound(std::forward<Ts>(yuke)...);
+	}
+	
+	template <typename ...Ts>
+	void playSoundMoveMenuOption(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundMoveMenuOption(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundSelectMenuOption(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundSelectMenuOption(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundInputLetter(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundInputLetter(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundInputRow(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundInputRow(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundBackspaceLetter(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundBackspaceLetter(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundShakeRow(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundShakeRow(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundMoveRow(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundMoveRow(std::forward<Ts>(yuke)...);
 	}
 }

@@ -33,16 +33,19 @@ bool MainMenuScreen::handleInput(const sf::Event& event)
 	if (ResourceManager::hasAction(GameAction::MAIN_MENU_MOVE_UP))
 	{
 		p_selector = (p_selector + P_MAIN_MENU_MAX_OPTIONS - 1) % P_MAIN_MENU_MAX_OPTIONS;
+		ResourceManager::playSoundMoveMenuOption();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::MAIN_MENU_MOVE_DOWN))
 	{
 		p_selector = (p_selector + 1) % P_MAIN_MENU_MAX_OPTIONS;
+		ResourceManager::playSoundMoveMenuOption();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::MAIN_MENU_SELECT))
 	{
 		ScreenManager::advance(p_nextState[p_selector]);
+		ResourceManager::playSoundSelectMenuOption();
 		captured = true;
 	}
 

@@ -9,6 +9,7 @@ namespace ResourceManager
 	GameState currentState = GameState::MAIN_MENU;
 	std::unique_ptr<FontManager> fontManagerPtr;
 	std::unique_ptr<ActionManager> actionManagerPtr;
+	std::unique_ptr<AudioManager> audioManagerPtr;
 	std::vector<std::string> lexicon;
 	std::vector<std::string> concordance;
 	std::vector<AdjacencyListEntry> adjList;
@@ -64,6 +65,9 @@ namespace ResourceManager
 		fontManagerPtr->init();
 
 		actionManagerPtr = std::make_unique<ActionManager>();
+
+		audioManagerPtr = std::make_unique<AudioManager>();
+		audioManagerPtr->init();
 
 		loadAssets();
 	}
