@@ -4,6 +4,7 @@
 
 #include "managers/FontManager.hpp"
 #include "managers/ActionManager.hpp"
+#include "managers/AudioManager.hpp"
 
 // ////////////////////////////////////
 // GAME STATES
@@ -21,23 +22,28 @@ namespace ResourceManager
 {
 	extern std::unique_ptr<FontManager> fontManagerPtr;
 	extern std::unique_ptr<ActionManager> actionManagerPtr;
+	extern std::unique_ptr<AudioManager> audioManagerPtr;
 	extern std::vector<std::string> lexicon;
 	extern std::vector<std::string> concordance;
 	extern std::vector<AdjacencyListEntry> adjList;
 	void init();
 
-	template <typename ...Ts>
-	void loadFont(Ts&&... yuke)
-	{
-		fontManagerPtr->load(std::forward<Ts>(yuke)...);
-	}
 
+
+	// #######################################
+	// ############ FONT MANAGER #############
+	// #######################################
 	template <typename ...Ts>
 	const sf::Font& getFont(Ts&&... yuke)
 	{
 		return fontManagerPtr->get(std::forward<Ts>(yuke)...);
 	}
 
+
+
+	// #######################################
+	// ########### ACTION MANAGER ############
+	// #######################################
 	template <typename ...Ts>
 	void checkActions(Ts&&... yuke)
 	{
@@ -54,5 +60,22 @@ namespace ResourceManager
 	void clearActions(Ts&&... yuke)
 	{
 		actionManagerPtr->clearActions(std::forward<Ts>(yuke)...);
+	}
+
+
+
+	// #######################################
+	// ############ AUDIO MANAGER ############
+	// #######################################
+	template <typename ...Ts>
+	const sf::SoundBuffer& getSoundBuffer(Ts&&... yuke)
+	{
+		return audioManagerPtr->getSoundBuffer(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundInputLetter(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundInputLetter(std::forward<Ts>(yuke)...);
 	}
 }

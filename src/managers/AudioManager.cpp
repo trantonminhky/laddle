@@ -31,9 +31,9 @@ void AudioManager::init()
 		loadSoundBuffer(entry.key, entry.path);
 	}
 
-	swag_assert(music.openFromFile("./assets/music/main.ogg"));
-	music.play();
-	music.setLooping(true);
+	// swag_assert(music.openFromFile("./assets/music/main.ogg"));
+	// music.play();
+	// music.setLooping(true);
 }
 
 const sf::SoundBuffer& AudioManager::getSoundBuffer(const Sound& sound) const
