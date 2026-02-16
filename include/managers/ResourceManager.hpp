@@ -78,4 +78,10 @@ namespace ResourceManager
 	{
 		audioManagerPtr->playSoundInputLetter(std::forward<Ts>(yuke)...);
 	}
+
+	template <typename ...Ts>
+	void playSoundInputRow(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundInputRow(std::forward<Ts>(yuke)...);
+	}
 }

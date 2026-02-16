@@ -15,7 +15,8 @@ struct MusicTableEntry
 };
 
 constexpr SoundTableEntry SOUND_TABLE[] = {
-	{ Sounds::INPUT_LETTER, "./assets/sounds/input_letter.wav" }
+	{ Sounds::INPUT_LETTER, "./assets/sounds/input_letter.wav" },
+	{ Sounds::INPUT_ROW, "./assets/sounds/input_row.wav" }
 };
 
 void AudioManager::loadAudio(const Sounds& key, const std::string& path)
@@ -46,6 +47,13 @@ sf::Sound& AudioManager::getSound(const Sounds& sound)
 void AudioManager::playSoundInputLetter()
 {
 	sf::Sound& sound = getSound(Sounds::INPUT_LETTER);
+	sound.setVolume(20);
+	sound.play();
+}
+
+void AudioManager::playSoundInputRow()
+{
+	sf::Sound& sound = getSound(Sounds::INPUT_ROW);
 	sound.setVolume(20);
 	sound.play();
 }

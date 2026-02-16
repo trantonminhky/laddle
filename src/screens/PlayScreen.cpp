@@ -173,6 +173,7 @@ bool PlayScreen::handleInput(const sf::Event &event)
 		{
 			rowStackTop.check(p_answer);
 			p_pushRow();
+			ResourceManager::playSoundInputRow();
 			p_message = "go on...";
 		}
 		captured = true;
