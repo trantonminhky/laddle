@@ -15,6 +15,9 @@ struct MusicTableEntry
 };
 
 constexpr SoundTableEntry SOUND_TABLE[] = {
+	{ Sounds::MOVE_MENU_OPTION, "./assets/sounds/move_menu_option.wav" },
+	{ Sounds::SELECT_MENU_OPTION, "./assets/sounds/select_menu_option.wav" },
+
 	{ Sounds::INPUT_LETTER, "./assets/sounds/input_letter.wav" },
 	{ Sounds::INPUT_ROW, "./assets/sounds/input_row.wav" },
 	{ Sounds::BACKSPACE_LETTER, "./assets/sounds/backspace_letter.wav" },
@@ -45,6 +48,20 @@ void AudioManager::init()
 sf::Sound& AudioManager::getSound(const Sounds& sound)
 {
 	return p_audios.at(sound).sound;
+}
+
+void AudioManager::playSoundMoveMenuOption()
+{
+	sf::Sound& sound = getSound(Sounds::MOVE_MENU_OPTION);
+	sound.setVolume(20);
+	sound.play();
+}
+
+void AudioManager::playSoundSelectMenuOption()
+{
+	sf::Sound& sound = getSound(Sounds::SELECT_MENU_OPTION);
+	sound.setVolume(20);
+	sound.play();
 }
 
 void AudioManager::playSoundInputLetter()

@@ -67,10 +67,23 @@ namespace ResourceManager
 	// #######################################
 	// ############ AUDIO MANAGER ############
 	// #######################################
+	
 	template <typename ...Ts>
 	sf::Sound& getSoundBuffer(Ts&&... yuke)
 	{
 		return audioManagerPtr->getSound(std::forward<Ts>(yuke)...);
+	}
+	
+	template <typename ...Ts>
+	void playSoundMoveMenuOption(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundMoveMenuOption(std::forward<Ts>(yuke)...);
+	}
+
+	template <typename ...Ts>
+	void playSoundSelectMenuOption(Ts&&... yuke)
+	{
+		audioManagerPtr->playSoundSelectMenuOption(std::forward<Ts>(yuke)...);
 	}
 
 	template <typename ...Ts>

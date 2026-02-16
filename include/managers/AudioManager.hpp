@@ -9,6 +9,9 @@ enum class Musics
 
 enum class Sounds
 {
+	MOVE_MENU_OPTION,
+	SELECT_MENU_OPTION,
+
 	INPUT_LETTER,
 	INPUT_ROW,
 	BACKSPACE_LETTER,
@@ -33,11 +36,15 @@ public:
 
 	sf::Sound& getSound(const Sounds& sound);
 
+	void playSoundMoveMenuOption();
+	void playSoundSelectMenuOption();
+
 	void playSoundInputLetter();
 	void playSoundInputRow();
 	void playSoundBackspaceLetter();
 	void playSoundShakeRow();
 	void playSoundMoveRow();
+
 
 
 private:
