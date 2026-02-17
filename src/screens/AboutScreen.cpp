@@ -43,7 +43,7 @@ void AboutScreen::update()
 {
 }
 
-void AboutScreen::p_drawText(sf::RenderTarget &window, const sf::Font &font) const
+void AboutScreen::p_drawText(sf::RenderTarget &window, const sf::Font& font) const
 {
 	AboutPage currentPage = ABOUT_PAGES[p_iterator];
 	auto currentPageTextTokens = splitString(currentPage.text, '\n');
@@ -55,8 +55,25 @@ void AboutScreen::p_drawText(sf::RenderTarget &window, const sf::Font &font) con
 		currentPageText += '\n';
 	}
 	sf::Text mainText(font, currentPageText, currentPage.fontSize);
-	mainText.setPosition({200.0f, 200.0f});
+	mainText.setPosition({100.0f, 100.0f});
 	window.draw(mainText);
+}
+
+void AboutScreen::p_drawArrow(sf::RenderTarget& window, const sf::Font& font) const
+{
+	if (p_iterator > 0)
+	{
+		sf::Text leftArrowText(font, "<", 50);
+		leftArrowText.setPosition({100, 700});
+		window.draw(leftArrowText);
+	}
+
+	if (p_iterator < MAX_ABOUT_PAGES - 1)
+	{
+		sf::Text rightArrowText(font, ">", 50);
+		rightArrowText.setPosition({1100, 700});
+		window.draw(rightArrowText);
+	}
 }
 
 void AboutScreen::draw(sf::RenderTarget &window) const
@@ -64,10 +81,5 @@ void AboutScreen::draw(sf::RenderTarget &window) const
 	const sf::Font &font = ResourceManager::getFont(Font::VCR_OSD_MONO);
 
 	p_drawText(window, font);
-
-	// sf::RectangleShape rect({800.0f, 400.0f});
-	// rect.setPosition({200.0f, 200.0f});
-	// rect.setOutlineThickness(3);
-	// rect.setFillColor(sf::Color::Transparent);
-	// window.draw(rect);
+	p_drawArrow(window, font);
 }
