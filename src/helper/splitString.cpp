@@ -4,7 +4,11 @@
 std::vector<std::string> splitString(const std::string& input, const char& delim)
 {
 	std::vector<std::string> tokens;
-	if (!input.size()) return tokens;
+	if (!input.size())
+	{
+		tokens.push_back("");
+		return tokens;
+	}
 	std::stringstream tokenStream("");
 
 	for (const char& c : input)
