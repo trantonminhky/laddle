@@ -13,7 +13,7 @@ enum class GameState
 	NONE,
 	MAIN_MENU,
 	PLAY,
-	ABOUT,
+	INSTRUCTION,
 	OPTIONS,
 	NOT_IMPLEMENTED
 };

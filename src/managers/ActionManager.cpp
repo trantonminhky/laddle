@@ -49,13 +49,13 @@ void ActionManager::checkActions(const sf::Event& event)
 	if (keyPressedEvent)
 	{
 		auto scancode = keyPressedEvent->scancode;
-		p_actionStates[GameAction::ABOUT_MOVE_NEXT_PAGE] = (
+		p_actionStates[GameAction::INSTRUCTION_MOVE_NEXT_PAGE] = (
 			scancode == sf::Keyboard::Scan::Right
 		);
-		p_actionStates[GameAction::ABOUT_MOVE_PREVIOUS_PAGE] = (
+		p_actionStates[GameAction::INSTRUCTION_MOVE_PREVIOUS_PAGE] = (
 			scancode == sf::Keyboard::Scan::Left
 		);
-		p_actionStates[GameAction::ABOUT_EXIT] = (
+		p_actionStates[GameAction::INSTRUCTION_EXIT] = (
 			scancode == sf::Keyboard::Scan::Escape
 		);
 	}

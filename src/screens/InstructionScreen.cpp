@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "screens/AboutScreen.hpp"
+#include "screens/InstructionScreen.hpp"
 
 #include "managers/ResourceManager.hpp"
 #include "managers/ScreenManager.hpp"
@@ -8,20 +8,20 @@
 #include "helper/splitString.hpp"
 #include "helper/linebreak.hpp"
 
-bool AboutScreen::handleInput(const sf::Event &event)
+bool InstructionScreen::handleInput(const sf::Event &event)
 {
 	bool captured = false;
 	ResourceManager::checkActions(event);
 
-	if (ResourceManager::hasAction(GameAction::ABOUT_MOVE_NEXT_PAGE))
+	if (ResourceManager::hasAction(GameAction::INSTRUCTION_MOVE_NEXT_PAGE))
 	{
-		if (p_iterator < MAX_ABOUT_PAGES - 1)
+		if (p_iterator < MAX_INSTRUCTION_PAGES - 1)
 		{
 			p_iterator++;
 			captured = true;
 		}
 	}
-	else if (ResourceManager::hasAction(GameAction::ABOUT_MOVE_PREVIOUS_PAGE))
+	else if (ResourceManager::hasAction(GameAction::INSTRUCTION_MOVE_PREVIOUS_PAGE))
 	{
 		if (p_iterator > 0)
 		{
@@ -29,7 +29,7 @@ bool AboutScreen::handleInput(const sf::Event &event)
 			captured = true;
 		}
 	}
-	else if (ResourceManager::hasAction(GameAction::ABOUT_EXIT))
+	else if (ResourceManager::hasAction(GameAction::INSTRUCTION_EXIT))
 	{
 		ScreenManager::retreat();
 		captured = true;
@@ -39,13 +39,13 @@ bool AboutScreen::handleInput(const sf::Event &event)
 	return captured;
 }
 
-void AboutScreen::update()
+void InstructionScreen::update()
 {
 }
 
-void AboutScreen::p_drawText(sf::RenderTarget &window, const sf::Font& font) const
+void InstructionScreen::p_drawText(sf::RenderTarget &window, const sf::Font& font) const
 {
-	AboutPage currentPage = ABOUT_PAGES[p_iterator];
+	InstructionPage currentPage = INSTRUCTION_PAGES[p_iterator];
 	auto currentPageTextTokens = splitString(currentPage.text, '\n');
 	std::string currentPageText;
 	
@@ -59,7 +59,7 @@ void AboutScreen::p_drawText(sf::RenderTarget &window, const sf::Font& font) con
 	window.draw(mainText);
 }
 
-void AboutScreen::p_drawArrow(sf::RenderTarget& window, const sf::Font& font) const
+void InstructionScreen::p_drawArrow(sf::RenderTarget& window, const sf::Font& font) const
 {
 	if (p_iterator > 0)
 	{
@@ -68,7 +68,7 @@ void AboutScreen::p_drawArrow(sf::RenderTarget& window, const sf::Font& font) co
 		window.draw(leftArrowText);
 	}
 
-	if (p_iterator < MAX_ABOUT_PAGES - 1)
+	if (p_iterator < MAX_INSTRUCTION_PAGES - 1)
 	{
 		sf::Text rightArrowText(font, ">", 50);
 		rightArrowText.setPosition({1100, 700});
@@ -76,7 +76,7 @@ void AboutScreen::p_drawArrow(sf::RenderTarget& window, const sf::Font& font) co
 	}
 }
 
-void AboutScreen::draw(sf::RenderTarget &window) const
+void InstructionScreen::draw(sf::RenderTarget &window) const
 {
 	const sf::Font &font = ResourceManager::getFont(Font::VCR_OSD_MONO);
 

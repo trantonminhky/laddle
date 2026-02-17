@@ -6,7 +6,7 @@
 #include "screens/MainMenuScreen.hpp"
 #include "screens/NotImplementedScreen.hpp"
 #include "screens/PlayScreen.hpp"
-#include "screens/AboutScreen.hpp"
+#include "screens/InstructionScreen.hpp"
 
 class ScreenManager
 {
