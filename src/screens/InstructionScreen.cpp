@@ -8,6 +8,12 @@
 #include "helper/splitString.hpp"
 #include "helper/linebreak.hpp"
 
+constexpr sf::Vector2f MAIN_TEXT_POSITION = {100.0f, 100.0f};
+
+constexpr auto ARROW_TEXT_FONT_SIZE = 50;
+constexpr sf::Vector2f LEFT_ARROW_TEXT_POSITION = {100.0f, 700.0f};
+constexpr sf::Vector2f RIGHT_ARROW_TEXT_POSITION = {1100.0f, 700.0f};
+
 bool InstructionScreen::handleInput(const sf::Event &event)
 {
 	bool captured = false;
@@ -41,6 +47,7 @@ bool InstructionScreen::handleInput(const sf::Event &event)
 
 void InstructionScreen::update()
 {
+
 }
 
 void InstructionScreen::p_drawText(sf::RenderTarget &window, const sf::Font& font) const
@@ -54,8 +61,9 @@ void InstructionScreen::p_drawText(sf::RenderTarget &window, const sf::Font& fon
 		currentPageText += linebreak(token, currentPage.lineWidth);
 		currentPageText += '\n';
 	}
+
 	sf::Text mainText(font, currentPageText, currentPage.fontSize);
-	mainText.setPosition({100.0f, 100.0f});
+	mainText.setPosition(MAIN_TEXT_POSITION);
 	window.draw(mainText);
 }
 
@@ -63,15 +71,15 @@ void InstructionScreen::p_drawArrow(sf::RenderTarget& window, const sf::Font& fo
 {
 	if (p_iterator > 0)
 	{
-		sf::Text leftArrowText(font, "<", 50);
-		leftArrowText.setPosition({100, 700});
+		sf::Text leftArrowText(font, "<", ARROW_TEXT_FONT_SIZE);
+		leftArrowText.setPosition(LEFT_ARROW_TEXT_POSITION);
 		window.draw(leftArrowText);
 	}
 
 	if (p_iterator < MAX_INSTRUCTION_PAGES - 1)
 	{
-		sf::Text rightArrowText(font, ">", 50);
-		rightArrowText.setPosition({1100, 700});
+		sf::Text rightArrowText(font, ">", ARROW_TEXT_FONT_SIZE);
+		rightArrowText.setPosition(RIGHT_ARROW_TEXT_POSITION);
 		window.draw(rightArrowText);
 	}
 }
