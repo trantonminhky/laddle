@@ -41,6 +41,7 @@ void AudioManager::init()
 	}
 
 	// swag_assert(p_music.openFromFile("./assets/music/main.ogg"));
+	// p_music.setVolume(40);
 	// p_music.play();
 	// p_music.setLooping(true);
 }

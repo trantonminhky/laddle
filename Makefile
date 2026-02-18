@@ -17,14 +17,14 @@ DEP_FILES := $(OBJ_FILES:.o=.d)
 TARGET := laddle
 
 # Runtime search path: lib/ next to the executable
-LDFLAGS := -Wl,-rpath,'$$ORIGIN/lib'
+LDFLAGS := -L./lib -Wl,-rpath,'$$ORIGIN/lib' -Wl,--disable-new-dtags
 LDLIBS  := -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
 all: $(TARGET)
 
 # Link
 $(TARGET): $(OBJ_FILES)
-	$(CXX) $(OBJ_FILES) -o $@ -L./lib $(LDFLAGS) $(LDLIBS)
+	$(CXX) $(OBJ_FILES) -o $@ $(LDFLAGS) $(LDLIBS)
 
 # Compile
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
