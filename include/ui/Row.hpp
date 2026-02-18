@@ -1,7 +1,9 @@
 #pragma once
-#include "ui/Tile.hpp"
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+
+#include "ui/Tile.hpp"
+
 #include "clocks/ShakeClock.hpp"
 
 constexpr auto WORD_LENGTH = 5;

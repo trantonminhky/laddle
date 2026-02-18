@@ -3,10 +3,7 @@
 
 #include "ui/Row.hpp"
 
-#include "managers/ResourceManager.hpp"
-
 #include "helper/swag_assert.hpp"
-#include "helper/centerTextInRect.hpp"
 
 constexpr auto ENGLISH_ALPHABET_SIZE = 26;
 

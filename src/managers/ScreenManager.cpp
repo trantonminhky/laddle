@@ -30,6 +30,13 @@ void ScreenManager::advance(const GameState& nextState)
 			break;
 		}
 
+		case GameState::SETTINGS:
+		{
+			p_stateStack.push(GameState::SETTINGS);
+			p_screenStack.push(std::make_unique<SettingsScreen>());
+			break;
+		}
+
 		case GameState::PLAY:
 		{
 			p_stateStack.push(GameState::PLAY);

@@ -14,7 +14,7 @@ enum class GameState
 	MAIN_MENU,
 	PLAY,
 	INSTRUCTION,
-	OPTIONS,
+	SETTINGS,
 	NOT_IMPLEMENTED
 };
 
