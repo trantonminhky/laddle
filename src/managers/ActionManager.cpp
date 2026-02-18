@@ -43,7 +43,7 @@ void ActionManager::checkActions(const sf::Event& event)
 
 	/*
 		#######################################
-		########### NOT IMPLEMENTED ###########
+		############# INSTRUCTION #############
 		#######################################
 	*/
 	if (keyPressedEvent)
@@ -60,6 +60,31 @@ void ActionManager::checkActions(const sf::Event& event)
 		);
 	}
 
+	/*
+		########################################
+		############## SETTINGS ################
+		########################################
+	*/
+	if (keyPressedEvent)
+	{
+		auto scancode = keyPressedEvent->scancode;
+		p_actionStates[GameAction::SETTINGS_MOVE_UP] = (
+			scancode == sf::Keyboard::Scan::Up
+		);
+		p_actionStates[GameAction::SETTINGS_MOVE_DOWN] = (
+			scancode == sf::Keyboard::Scan::Down
+		);
+		p_actionStates[GameAction::SETTINGS_MOVE_LEFT] = (
+			scancode == sf::Keyboard::Scan::Left
+		);
+		p_actionStates[GameAction::SETTINGS_MOVE_RIGHT] = (
+			scancode == sf::Keyboard::Scan::Right
+		);
+		p_actionStates[GameAction::SETTINGS_EXIT] = (
+			scancode == sf::Keyboard::Scan::Escape
+		);
+	}
+	
 	/*
 		########################################
 		################# PLAY #################
