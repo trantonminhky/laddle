@@ -40,10 +40,10 @@ void AudioManager::init()
 		loadAudio(entry.key, entry.path);
 	}
 
-	// swag_assert(p_music.openFromFile("./assets/music/main.ogg"));
-	// p_music.setVolume(p_musicVolume);
-	// p_music.play();
-	// p_music.setLooping(true);
+	swag_assert(p_music.openFromFile("./assets/music/main.ogg"));
+	p_music.setVolume(p_musicVolume);
+	p_music.play();
+	p_music.setLooping(true);
 }
 
 sf::Sound& AudioManager::getSound(const Sounds& sound)
@@ -69,6 +69,7 @@ void AudioManager::setSFXVolume(const int& volume)
 void AudioManager::setMusicVolume(const int& volume)
 {
 	p_musicVolume = volume;
+	p_music.setVolume(volume);
 }
 
 void AudioManager::playSoundMoveMenuOption()

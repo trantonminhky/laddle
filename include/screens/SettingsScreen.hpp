@@ -3,6 +3,8 @@
 
 #include "ui/Spinner.hpp"
 
+constexpr auto SPINNERS_COUNT = 2;
+
 class SettingsScreen : public BaseScreen
 {
 public:
@@ -15,6 +17,6 @@ public:
 	~SettingsScreen() = default;
 
 private:
-	std::unique_ptr<Spinner> p_musicSpinnerPtr;
-	std::unique_ptr<Spinner> p_SFXSpinnerPtr;
+	int p_selector = 0;
+	std::array<std::unique_ptr<Spinner>, SPINNERS_COUNT> p_spinners;
 };

@@ -4,6 +4,11 @@
 
 #include "managers/ResourceManager.hpp"
 
+std::string Spinner::getCurrentValue() const
+{
+	return p_options[p_iterator];
+}
+
 void Spinner::goNext()
 {
 	if (p_loop)

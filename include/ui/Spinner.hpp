@@ -26,6 +26,8 @@ public:
 		swag_assert(initialValue >= 0 && initialValue < endPlusOne - start);
 	}
 
+	std::string getCurrentValue() const;
+
 	void goNext();
 	void goPrevious();
 
