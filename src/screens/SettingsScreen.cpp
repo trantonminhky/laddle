@@ -7,15 +7,16 @@
 
 SettingsScreen::SettingsScreen() : BaseScreen()
 {
-	std::vector<std::string> vec;
-	for (const auto &option : TEST_SPINNER_OPTIONS)
-	{
-		vec.push_back(option);
-	}
-	p_spinnerPtr = std::make_unique<Spinner>(vec, 10);
-	p_spinnerPtr->setLoop();
-	p_spinnerPtr->setSize(30);
-	p_spinnerPtr->setPosition({200.0f, 200.0f});
+	p_musicSpinnerPtr = std::make_unique<Spinner>(0, 101, 10, ResourceManager::getMusicVolume());
+	p_musicSpinnerPtr->setLoop();
+	p_musicSpinnerPtr->setSize(50);
+	p_musicSpinnerPtr->setPosition({500.0f, 200.0f});
+
+
+	p_SFXSpinnerPtr = std::make_unique<Spinner>(0, 101, 10, ResourceManager::getSFXVolume());
+	p_SFXSpinnerPtr->setLoop();
+	p_SFXSpinnerPtr->setSize(50);
+	p_SFXSpinnerPtr->setPosition({500.0f, 300.0f});
 }
 
 bool SettingsScreen::handleInput(const sf::Event &event)
@@ -33,12 +34,12 @@ bool SettingsScreen::handleInput(const sf::Event &event)
 	}
 	else if (ResourceManager::hasAction(GameAction::SETTINGS_MOVE_LEFT))
 	{
-		p_spinnerPtr->goPrevious();
+		p_musicSpinnerPtr->goPrevious();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::SETTINGS_MOVE_RIGHT))
 	{
-		p_spinnerPtr->goNext();
+		p_musicSpinnerPtr->goNext();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::SETTINGS_EXIT))
@@ -59,5 +60,6 @@ void SettingsScreen::draw(sf::RenderTarget &window) const
 {
 	const sf::Font &font = ResourceManager::getFont(Font::VCR_OSD_MONO);
 
-	window.draw(*p_spinnerPtr);
+	window.draw(*p_musicSpinnerPtr);
+	window.draw(*p_SFXSpinnerPtr);
 }

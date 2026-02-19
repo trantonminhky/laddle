@@ -3,8 +3,6 @@
 
 #include "ui/Spinner.hpp"
 
-constexpr auto TEST_SPINNER_OPTIONS = {"1", "2", "3"};
-
 class SettingsScreen : public BaseScreen
 {
 public:
@@ -17,5 +15,6 @@ public:
 	~SettingsScreen() = default;
 
 private:
-	std::unique_ptr<Spinner> p_spinnerPtr;
+	std::unique_ptr<Spinner> p_musicSpinnerPtr;
+	std::unique_ptr<Spinner> p_SFXSpinnerPtr;
 };

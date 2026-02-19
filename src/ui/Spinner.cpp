@@ -51,5 +51,6 @@ void Spinner::draw(sf::RenderTarget& target, [[maybe_unused]] sf::RenderStates s
 	std::string padRight(padRightSize, ' ');
 
 	sf::Text spinner(font, "[" + padLeft + currentOption + padRight + "]", p_size);
+	spinner.setPosition(getPosition());
 	target.draw(spinner);
 }
