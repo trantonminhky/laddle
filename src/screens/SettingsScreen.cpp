@@ -28,21 +28,25 @@ bool SettingsScreen::handleInput(const sf::Event &event)
 	if (ResourceManager::hasAction(GameAction::SETTINGS_MOVE_UP))
 	{
 		p_selector = (p_selector + SPINNERS_COUNT - 1) % SPINNERS_COUNT;
+		ResourceManager::playSoundMoveMenuOption();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::SETTINGS_MOVE_DOWN))
 	{
 		p_selector = (p_selector + 1) % SPINNERS_COUNT;
+		ResourceManager::playSoundMoveMenuOption();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::SETTINGS_MOVE_LEFT))
 	{
 		p_spinners[p_selector]->goPrevious();
+		ResourceManager::playSoundMoveMenuOption();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::SETTINGS_MOVE_RIGHT))
 	{
 		p_spinners[p_selector]->goNext();
+		ResourceManager::playSoundMoveMenuOption();
 		captured = true;
 	}
 	else if (ResourceManager::hasAction(GameAction::SETTINGS_EXIT))
