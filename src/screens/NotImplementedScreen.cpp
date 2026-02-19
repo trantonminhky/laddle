@@ -20,7 +20,7 @@ bool NotImplementedScreen::handleInput(const sf::Event& event)
 
 void NotImplementedScreen::update()
 {
-
+	
 }
 
 void NotImplementedScreen::p_drawText(sf::RenderTarget& window, const sf::Font& font) const

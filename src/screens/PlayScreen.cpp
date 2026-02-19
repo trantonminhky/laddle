@@ -149,8 +149,14 @@ bool PlayScreen::handleInput(const sf::Event &event)
 	}
 	else if (ResourceManager::hasAction(GameAction::PLAY_ENTER))
 	{
-		if (p_detachedHead)
+		if (p_winnar)
 		{
+			ResourceManager::playSoundShakeRow();
+			p_message = "kid you have alr won";
+		}
+		else if (p_detachedHead)
+		{
+			ResourceManager::playSoundShakeRow();
 			p_message = "kid get back to your row";
 		}
 		else if (!rowStackTop.isFull())
@@ -180,9 +186,17 @@ bool PlayScreen::handleInput(const sf::Event &event)
 		else
 		{
 			rowStackTop.check(p_answer);
-			p_pushRow();
+			if (rowStackTop.getWord() == p_answer)
+			{
+				p_winnar = true;
+				p_message = "winnar!!!";
+			}
+			else
+			{
+				p_pushRow();
+				p_message = "go on...";
+			}
 			ResourceManager::playSoundInputRow();
-			p_message = "go on...";
 		}
 		captured = true;
 	}
@@ -207,7 +221,7 @@ bool PlayScreen::handleInput(const sf::Event &event)
 		}
 	}
 
-	if (event.is<sf::Event::TextEntered>() && !p_detachedHead)
+	if (event.is<sf::Event::TextEntered>() && !p_detachedHead && !p_winnar)
 	{
 		auto letter = event.getIf<sf::Event::TextEntered>()->unicode;
 		if (letter >= 'a' && letter <= 'z')

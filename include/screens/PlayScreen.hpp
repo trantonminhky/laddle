@@ -22,6 +22,7 @@ private:
 	std::vector<Row> p_rowStack;
 	int p_iterator = -1;
 	bool p_detachedHead = false;
+	bool p_winnar = false;
 
 	std::string p_source;
 	std::string p_answer;

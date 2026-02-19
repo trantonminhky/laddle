@@ -17,8 +17,8 @@ private:
 	static constexpr auto P_MAIN_MENU_MAX_OPTIONS = 4;
 	static constexpr GameState p_nextState[P_MAIN_MENU_MAX_OPTIONS] = {
 		GameState::PLAY,
-		GameState::ABOUT,
-		GameState::OPTIONS,
+		GameState::INSTRUCTION,
+		GameState::SETTINGS,
 		GameState::NONE
 	};
 

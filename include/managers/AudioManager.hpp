@@ -36,6 +36,11 @@ public:
 
 	sf::Sound& getSound(const Sounds& sound);
 
+	int getSFXVolume() const;
+	int getMusicVolume() const;
+	void setSFXVolume(const int& volume);
+	void setMusicVolume(const int& volume);
+
 	void playSoundMoveMenuOption();
 	void playSoundSelectMenuOption();
 
@@ -50,4 +55,7 @@ public:
 private:
 	std::unordered_map<Sounds, Audio> p_audios;
 	sf::Music p_music;
+
+	int p_SFXVolume = 20;
+	int p_musicVolume = 40;
 };

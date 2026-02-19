@@ -6,6 +6,8 @@
 #include "screens/MainMenuScreen.hpp"
 #include "screens/NotImplementedScreen.hpp"
 #include "screens/PlayScreen.hpp"
+#include "screens/InstructionScreen.hpp"
+#include "screens/SettingsScreen.hpp"
 
 class ScreenManager
 {
@@ -27,6 +29,7 @@ public:
 	bool shouldExit() const;
 
 private:
+	static bool p_shouldExit;
 	static std::stack<GameState> p_stateStack;
 	static std::stack<std::unique_ptr<BaseScreen>> p_screenStack;
 };

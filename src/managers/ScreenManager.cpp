@@ -4,6 +4,7 @@
 
 std::stack<GameState> ScreenManager::p_stateStack;
 std::stack<std::unique_ptr<BaseScreen>> ScreenManager::p_screenStack;
+bool ScreenManager::p_shouldExit = false;
 
 void ScreenManager::init()
 {
@@ -22,10 +23,30 @@ void ScreenManager::advance(const GameState& nextState)
 			break;
 		}
 
+		case GameState::INSTRUCTION:
+		{
+			p_stateStack.push(GameState::INSTRUCTION);
+			p_screenStack.push(std::make_unique<InstructionScreen>());
+			break;
+		}
+
+		case GameState::SETTINGS:
+		{
+			p_stateStack.push(GameState::SETTINGS);
+			p_screenStack.push(std::make_unique<SettingsScreen>());
+			break;
+		}
+
 		case GameState::PLAY:
 		{
 			p_stateStack.push(GameState::PLAY);
 			p_screenStack.push(std::make_unique<PlayScreen>());
+			break;
+		}
+
+		case GameState::NONE:
+		{
+			p_shouldExit = true;
 			break;
 		}
 
@@ -69,5 +90,5 @@ GameState ScreenManager::getCurrentState() const
 
 bool ScreenManager::shouldExit() const
 {
-	return p_screenStack.empty();
+	return p_shouldExit;
 }

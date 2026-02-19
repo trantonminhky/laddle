@@ -40,9 +40,10 @@ void AudioManager::init()
 		loadAudio(entry.key, entry.path);
 	}
 
-	// swag_assert(p_music.openFromFile("./assets/music/main.ogg"));
-	// p_music.play();
-	// p_music.setLooping(true);
+	swag_assert(p_music.openFromFile("./assets/music/main.ogg"));
+	p_music.setVolume(p_musicVolume);
+	p_music.play();
+	p_music.setLooping(true);
 }
 
 sf::Sound& AudioManager::getSound(const Sounds& sound)
@@ -50,51 +51,72 @@ sf::Sound& AudioManager::getSound(const Sounds& sound)
 	return p_audios.at(sound).sound;
 }
 
+int AudioManager::getSFXVolume() const
+{
+	return p_SFXVolume;
+}
+
+int AudioManager::getMusicVolume() const
+{
+	return p_musicVolume;
+}
+
+void AudioManager::setSFXVolume(const int& volume)
+{
+	p_SFXVolume = volume;
+}
+
+void AudioManager::setMusicVolume(const int& volume)
+{
+	p_musicVolume = volume;
+	p_music.setVolume(volume);
+}
+
 void AudioManager::playSoundMoveMenuOption()
 {
 	sf::Sound& sound = getSound(Sounds::MOVE_MENU_OPTION);
-	sound.setVolume(20);
+	sound.setVolume(p_SFXVolume);
 	sound.play();
 }
 
 void AudioManager::playSoundSelectMenuOption()
 {
 	sf::Sound& sound = getSound(Sounds::SELECT_MENU_OPTION);
-	sound.setVolume(20);
+	sound.setVolume(p_SFXVolume);
 	sound.play();
 }
 
 void AudioManager::playSoundInputLetter()
 {
 	sf::Sound& sound = getSound(Sounds::INPUT_LETTER);
-	sound.setVolume(20);
+	sound.setVolume(p_SFXVolume);
 	sound.play();
 }
 
 void AudioManager::playSoundInputRow()
 {
 	sf::Sound& sound = getSound(Sounds::INPUT_ROW);
-	sound.setVolume(20);
+	sound.setVolume(p_SFXVolume);
 	sound.play();
 }
 
 void AudioManager::playSoundBackspaceLetter()
 {
 	sf::Sound& sound = getSound(Sounds::BACKSPACE_LETTER);
-	sound.setVolume(20);
+	sound.setVolume(p_SFXVolume);
 	sound.play();
 }
 
 void AudioManager::playSoundShakeRow()
 {
 	sf::Sound& sound = getSound(Sounds::SHAKE_ROW);
-	sound.setVolume(20);
+	sound.setVolume(p_SFXVolume);
 	sound.play();
 }
 
 void AudioManager::playSoundMoveRow()
 {
 	sf::Sound& sound = getSound(Sounds::MOVE_ROW);
-	sound.setVolume(20);
+	sound.setVolume(p_SFXVolume);
 	sound.play();
 }

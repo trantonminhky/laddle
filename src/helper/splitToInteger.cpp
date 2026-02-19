@@ -18,7 +18,8 @@ std::unordered_set<int> splitToInteger(const std::string& input, const char& del
 			tokens.insert(token);
 			tokenStream.str("");
 			tokenStream.clear();
-		} else
+		}
+		else
 		{
 			tokenStream << c;
 		}
