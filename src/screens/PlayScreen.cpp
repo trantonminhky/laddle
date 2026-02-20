@@ -34,7 +34,7 @@ void PlayScreen::p_generateSourceAndAnswer()
 	do
 	{
 		p_source = vecrand(ResourceManager::concordance);
-	} while (solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer).empty());
+	} while (p_source == p_answer || solve(ResourceManager::adjList, ResourceManager::lexicon, p_source, p_answer).empty());
 }
 
 void PlayScreen::p_initFirstGuess()
