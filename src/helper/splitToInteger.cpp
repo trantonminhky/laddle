@@ -4,7 +4,7 @@
 #include <sstream>
 
 // this is a bit different from regular string split, in that calling splitToInteger on "" would yield [] instead of [""]
-std::unordered_set<int> splitToInteger(std::string input, char delim)
+std::unordered_set<int> splitToInteger(const std::string& input, const char& delim)
 {
 	std::unordered_set<int> tokens;
 	if (!input.size()) return tokens;
@@ -18,7 +18,8 @@ std::unordered_set<int> splitToInteger(std::string input, char delim)
 			tokens.insert(token);
 			tokenStream.str("");
 			tokenStream.clear();
-		} else
+		}
+		else
 		{
 			tokenStream << c;
 		}

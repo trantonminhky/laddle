@@ -10,27 +10,27 @@ INCLUDES := -Iinclude
 SRC_DIR := src
 BUILD_DIR := build
 
-# Find all .cpp files recursively
 SRC_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
-
-# Map src/.../*.cpp → build/.../*.o
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC_FILES))
 DEP_FILES := $(OBJ_FILES:.o=.d)
 
 TARGET := laddle
 
+# Runtime search path: lib/ next to the executable
+LDFLAGS := -L./lib -Wl,-rpath,'$$ORIGIN/lib' -Wl,--disable-new-dtags
+LDLIBS  := -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
+
 all: $(TARGET)
 
 # Link
 $(TARGET): $(OBJ_FILES)
-	$(CXX) $(OBJ_FILES) -o $@ -lsfml-graphics -lsfml-window -lsfml-system
+	$(CXX) $(OBJ_FILES) -o $@ $(LDFLAGS) $(LDLIBS)
 
 # Compile
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
-# Pull in auto generated header dependencies
 -include $(DEP_FILES)
 
 clean:

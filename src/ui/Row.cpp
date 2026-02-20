@@ -3,14 +3,25 @@
 
 #include "ui/Row.hpp"
 
-#include "managers/ResourceManager.hpp"
-
 #include "helper/swag_assert.hpp"
-#include "helper/centerTextInRect.hpp"
+
+constexpr auto ENGLISH_ALPHABET_SIZE = 26;
+
+constexpr auto YELLOW_COLOR = sf::Color(255, 252, 114);
+constexpr auto GREEN_COLOR = sf::Color(127, 163, 92);
+
+constexpr auto TILE_LETTER_TEXT_FONT_SIZE = 80;
+constexpr auto TILE_HORIZONTAL_SPACING = 90;
+
+float Row::p_getShakeDisplacement() const
+{
+	auto x = p_shakeClock.SHAKE_AMPLITUDE.asSeconds() * std::sin(getPosition().x * p_shakeClock.SHAKE_STRENGTH.asSeconds() * p_shakeClock.clock.getElapsedTime().asSeconds());
+	return x;
+}
 
 Row::Row()
 {
-	shakeClock.clock.reset();
+	p_shakeClock.clock.reset();
 }
 
 bool Row::isFull() const
@@ -23,32 +34,10 @@ bool Row::isEmpty() const
 	return p_iterator == 0;
 }
 
-sf::Vector2f Row::getPosition() const
-{
-	if (shakeClock.toggle) return getAnimatedPosition();
-	else return getBasePosition();
-}
-
-sf::Vector2f Row::getBasePosition() const
-{
-	return p_position;
-}
-
 sf::Vector2f Row::getAnimatedPosition() const
 {
-	auto x = shakeClock.SHAKE_AMPLITUDE.asSeconds() * std::sin(p_position.x * shakeClock.SHAKE_STRENGTH.asSeconds() * shakeClock.clock.getElapsedTime().asSeconds());
-	return {p_position.x + x, p_position.y};
-}
-
-void Row::setPosition(const float& x, const float& y)
-{
-	p_position.x = x;
-	p_position.y = y;
-}
-
-void Row::setPosition(const sf::Vector2f& vecf)
-{
-	p_position = vecf;
+	auto shakeDisplacement = p_getShakeDisplacement();
+	return {getPosition().x + shakeDisplacement, getPosition().y};
 }
 
 Tile Row::getTileAtIndex(const int& i) const
@@ -70,7 +59,7 @@ std::array<TileState, WORD_LENGTH> Row::getState() const
 
 void Row::check(const std::string& target)
 {
-	std::array<int, 26> freq;
+	std::array<int, ENGLISH_ALPHABET_SIZE> freq;
 	freq.fill(0);
 
 	for (int i = 0; i < WORD_LENGTH; i++)
@@ -142,49 +131,31 @@ void Row::resetState()
 
 void Row::shake()
 {
-	shakeClock.toggle = true;
-	shakeClock.clock.restart();
+	p_shakeClock.toggle = true;
+	p_shakeClock.clock.restart();
 }
 
 void Row::update()
 {
-	if (!shakeClock.toggle) return;
-	if (shakeClock.clock.getElapsedTime() >= shakeClock.SHAKE_DURATION)
+	auto currentTilePosition = getAnimatedPosition();
+	for (int i = 0; i < WORD_LENGTH; i++)
 	{
-		shakeClock.toggle = false;
-		shakeClock.clock.reset();
+		p_tiles[i].setPosition(currentTilePosition);
+		currentTilePosition.x += TILE_HORIZONTAL_SPACING;
+	}
+
+	if (!p_shakeClock.toggle) return;
+	if (p_shakeClock.clock.getElapsedTime() >= p_shakeClock.SHAKE_DURATION)
+	{
+		p_shakeClock.toggle = false;
+		p_shakeClock.clock.reset();
 	}
 }
 
 void Row::draw(sf::RenderTarget& target, sf::RenderStates states [[maybe_unused]]) const
 {
-	sf::Vector2f currentTilePosition = getPosition();
-	const sf::Font& font = ResourceManager::getFont("VCR_OSD_MONO");
 	for (int i = 0; i < WORD_LENGTH; i++)
 	{
-		sf::RectangleShape tileRect({80.0f, 80.f});
-		tileRect.setPosition(currentTilePosition);
-		if (getTileAtIndex(i).getState() == TileState::MISPLACED)
-		{
-			tileRect.setFillColor(sf::Color(255, 252, 114));
-		}
-		else if (getTileAtIndex(i).getState() == TileState::CORRECT)
-		{
-			tileRect.setFillColor(sf::Color(127, 163, 92));
-		}
-		else
-		{
-			tileRect.setFillColor(sf::Color(255, 255, 255));
-		}
-
-		auto tileLetter = getTileAtIndex(i).getLetter();
-		sf::Text tileLetterText(font, tileLetter, 80);
-		tileLetterText.setFillColor(sf::Color::Black);
-		centerTextInRect(tileLetterText, tileRect);
-
-		target.draw(tileRect);
-		target.draw(tileLetterText);
-
-		currentTilePosition.x += 90;
+		target.draw(p_tiles[i]);
 	}
 }

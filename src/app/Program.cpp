@@ -1,17 +1,18 @@
+#include <iostream>
+#include <optional>
+#include <SFML/Graphics.hpp>
+
 #include "app/Program.hpp"
 #include "app/solve.hpp"
 
 #include "managers/ResourceManager.hpp"
 
-#include "screens/MainMenuScreen.hpp"
-
-#include <iostream>
-#include <optional>
-#include <SFML/Graphics.hpp>
+constexpr auto WINDOW_LENGTH = 1200;
+constexpr auto WINDOW_WIDTH = 800;
 
 void Program::run()
 {
-	sf::RenderWindow window(sf::VideoMode({1200, 800}), "poop");
+	sf::RenderWindow window(sf::VideoMode({WINDOW_LENGTH, WINDOW_WIDTH}), "POOP");
 
 	ResourceManager::init();
 

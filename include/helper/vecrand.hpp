@@ -5,7 +5,7 @@
 
 // returns random element in vector
 template <typename T>
-T vecrand(std::vector<T> vec)
+T vecrand(const std::vector<T>& vec)
 {
 	std::random_device rdev;
 	std::mt19937 rgen(rdev());

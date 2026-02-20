@@ -9,7 +9,7 @@ int hammingDistance(const std::string& src, const std::string& dest)
 
 	auto dist = 0;
 
-	for (auto i = 0; i < src.size(); i++)
+	for (auto i = 0; i < static_cast<int>(src.size()); i++)
 	{
 		if (src[i] != dest[i]) dist++;
 	}

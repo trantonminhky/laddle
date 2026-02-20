@@ -4,6 +4,7 @@
 
 std::stack<GameState> ScreenManager::p_stateStack;
 std::stack<std::unique_ptr<BaseScreen>> ScreenManager::p_screenStack;
+bool ScreenManager::p_shouldExit = false;
 
 void ScreenManager::init()
 {
@@ -11,7 +12,7 @@ void ScreenManager::init()
 	p_screenStack.push(std::make_unique<MainMenuScreen>());
 }
 
-void ScreenManager::advance(GameState nextState)
+void ScreenManager::advance(const GameState& nextState)
 {
 	switch (nextState)
 	{
@@ -22,17 +23,30 @@ void ScreenManager::advance(GameState nextState)
 			break;
 		}
 
-		case GameState::TEST:
+		case GameState::INSTRUCTION:
 		{
-			p_stateStack.push(GameState::TEST);
-			p_screenStack.push(std::make_unique<TestScreen>());
+			p_stateStack.push(GameState::INSTRUCTION);
+			p_screenStack.push(std::make_unique<InstructionScreen>());
+			break;
+		}
+
+		case GameState::SETTINGS:
+		{
+			p_stateStack.push(GameState::SETTINGS);
+			p_screenStack.push(std::make_unique<SettingsScreen>());
 			break;
 		}
 
 		case GameState::PLAY:
 		{
-			p_stateStack.push(GameState::TEST);
+			p_stateStack.push(GameState::PLAY);
 			p_screenStack.push(std::make_unique<PlayScreen>());
+			break;
+		}
+
+		case GameState::NONE:
+		{
+			p_shouldExit = true;
 			break;
 		}
 
@@ -62,7 +76,7 @@ void ScreenManager::update()
 	p_screenStack.top()->update();
 }
 
-void ScreenManager::draw(sf::RenderTarget& window)
+void ScreenManager::draw(sf::RenderTarget& window) const
 {
 	swag_assert(!p_screenStack.empty());
 	p_screenStack.top()->draw(window);
@@ -76,5 +90,5 @@ GameState ScreenManager::getCurrentState() const
 
 bool ScreenManager::shouldExit() const
 {
-	return p_screenStack.empty();
+	return p_shouldExit;
 }

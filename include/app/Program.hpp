@@ -15,9 +15,9 @@
 class Program
 {
 public:
+	explicit Program() = default;
 	void run();
 
-	explicit Program() = default;
 	Program(const Program& other) = delete;
 	Program& operator=(const Program& other) = delete;
 	Program(Program&& other) = delete;

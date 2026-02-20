@@ -9,10 +9,12 @@ enum class TileState
 };
 
 // a tile slot holding one character
-class Tile
+class Tile : public sf::Transformable, public sf::Drawable
 {
 public:
 	explicit Tile() = default;
+
+	void draw(sf::RenderTarget& target, [[maybe_unused]] sf::RenderStates states) const override;
 
 	TileState getState() const;
 	void setState(const TileState& newState);
@@ -22,6 +24,6 @@ public:
 	void reset();
 
 private:
-	TileState state = TileState::NONE;
+	TileState p_state = TileState::NONE;
 	char p_letter = '\x00';
 };

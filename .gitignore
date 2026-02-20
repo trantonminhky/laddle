@@ -4,3 +4,4 @@ python/
 laddle
 release
 *.tar.xz
+.VSCodeCounter
