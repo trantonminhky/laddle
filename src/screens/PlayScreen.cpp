@@ -224,11 +224,12 @@ bool PlayScreen::handleInput(const sf::Event &event)
 	if (event.is<sf::Event::TextEntered>() && !p_detachedHead && !p_winnar)
 	{
 		auto letter = event.getIf<sf::Event::TextEntered>()->unicode;
-		if (letter >= 'a' && letter <= 'z')
+		if ((letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z') )
 		{
 			if (!rowStackTop.isFull())
 			{
-				rowStackTop.pushLetter(letter);
+				char lowercaseLetter = tolower(letter);
+				rowStackTop.pushLetter(lowercaseLetter);
 				ResourceManager::playSoundInputLetter();
 			}
 		}
