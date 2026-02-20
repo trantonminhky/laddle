@@ -84,25 +84,40 @@ void SettingsScreen::update()
 {
 }
 
-void SettingsScreen::draw(sf::RenderTarget &window) const
+void SettingsScreen::p_drawTexts(sf::RenderTarget& window, const sf::Font& font) const
 {
-	const sf::Font &font = ResourceManager::getFont(Font::VCR_OSD_MONO);
-
 	sf::Text musicVolumeText(font, "Music:", SETTINGS_OPTIONS_TEXT_FONT_SIZE);
 	sf::Text SFXVolumeText(font, "SFX:", SETTINGS_OPTIONS_TEXT_FONT_SIZE);
 	musicVolumeText.setPosition({window.getSize().x / SETTINGS_OPTIONS_INDENT, MUSIC_VOLUME_TEXT_Y_POSITION});
 	SFXVolumeText.setPosition({window.getSize().x / SETTINGS_OPTIONS_INDENT, SFX_VOLUME_TEXT_Y_POSITION});
 
+	window.draw(musicVolumeText);
+	window.draw(SFXVolumeText);
+}
+
+void SettingsScreen::p_drawSelector(sf::RenderTarget& window, const sf::Font& font) const
+{
 	sf::Text selectorText(font, ">", SELECTOR_TEXT_FONT_SIZE);
 	auto selectorYPosition = p_selector * SETTINGS_OPTIONS_VERTICAL_SPACING + SETTINGS_OPTIONS_FIRST_OPTION_Y_POSITION;
 	auto lbounds = selectorText.getLocalBounds();
 	selectorText.setPosition({window.getSize().x / SETTINGS_OPTIONS_INDENT - SELECTOR_HORIZONTAL_SPACING * lbounds.size.x, selectorYPosition});
 
+	window.draw(selectorText);
+}
+
+void SettingsScreen::p_drawSpinners(sf::RenderTarget& window) const
+{
 	for (const auto& spinner : p_spinners)
 	{
 		window.draw(*spinner);
 	}
-	window.draw(musicVolumeText);
-	window.draw(SFXVolumeText);
-	window.draw(selectorText);
+}
+
+void SettingsScreen::draw(sf::RenderTarget &window) const
+{
+	const sf::Font& font = ResourceManager::getFont(Font::VCR_OSD_MONO);
+	
+	p_drawTexts(window, font);
+	p_drawSelector(window, font);
+	p_drawSpinners(window);
 }
