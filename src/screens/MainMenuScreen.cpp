@@ -11,7 +11,7 @@ constexpr auto LADDLE_TEXT_CONTENT = "LADDLE";
 constexpr auto LADDLE_TEXT_FONT_SIZE = 120;
 constexpr auto LADDLE_TEXT_LETTER_SPACING = 2.0f;
 
-constexpr auto MENU_OPTIONS_TEXT_SIZE = 60;
+constexpr auto MENU_OPTIONS_TEXT_FONT_SIZE = 60;
 // higher number = text goes left
 constexpr auto MENU_OPTIONS_INDENT = 4.0f;
 constexpr auto MENU_OPTIONS_FIRST_OPTION_Y_POSITION = 300.0f;
@@ -73,10 +73,10 @@ void MainMenuScreen::p_drawTitle(sf::RenderTarget& window, const sf::Font& font)
 
 void MainMenuScreen::p_drawMenuOptions(sf::RenderTarget& window, const sf::Font& font) const
 {
-	sf::Text playText(font, "PLAY", MENU_OPTIONS_TEXT_SIZE);
-	sf::Text instructionText(font, "INSTRUCTION", MENU_OPTIONS_TEXT_SIZE);
-	sf::Text settingsText(font, "SETTINGS", MENU_OPTIONS_TEXT_SIZE);
-	sf::Text exitText(font, "EXIT", MENU_OPTIONS_TEXT_SIZE);
+	sf::Text playText(font, "PLAY", MENU_OPTIONS_TEXT_FONT_SIZE);
+	sf::Text instructionText(font, "INSTRUCTION", MENU_OPTIONS_TEXT_FONT_SIZE);
+	sf::Text settingsText(font, "SETTINGS", MENU_OPTIONS_TEXT_FONT_SIZE);
+	sf::Text exitText(font, "EXIT", MENU_OPTIONS_TEXT_FONT_SIZE);
 	{
 		playText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, PLAY_TEXT_Y_POSITION});
 		instructionText.setPosition({window.getSize().x / MENU_OPTIONS_INDENT, INSTRUCTION_TEXT_Y_POSITION});
